@@ -147,7 +147,7 @@ let wonderCount=0;const wonderFlash=document.createElement('div');wonderFlash.id
 function microWonder(x,y){if(wonderCount>=100)return;const index=wonderCount++;const family=Math.floor(index/5),variant=index%5;wonderBadge.textContent='СЕКРЕТЫ '+String(wonderCount).padStart(2,'0')+' / 100';const line=wonderLines[family][variant];const ripple=document.createElement('i');ripple.className='wonder-ripple';ripple.style.left=x+'px';ripple.style.top=y+'px';document.body.append(ripple);setTimeout(()=>ripple.remove(),850);wonderFlash.style.setProperty('--wx',x+'px');wonderFlash.style.setProperty('--wy',y+'px');wonderFlash.classList.add('on');setTimeout(()=>wonderFlash.classList.remove('on'),240);const icons=['✦','♡','☄','✧','❀','☾','♢','⋆'];for(let i=0;i<7;i++){const p=document.createElement('i');p.className='burst';p.textContent=icons[(index+i)%icons.length];p.style.left=x+'px';p.style.top=y+'px';p.style.setProperty('--x',(Math.random()*150-75)+'px');p.style.setProperty('--y',(Math.random()*150-75)+'px');document.body.append(p);setTimeout(()=>p.remove(),1000)}toast(line);if(wonderCount===100)toast('Все 100 маленьких чудес найдены. Но сюрпризы ещё не закончились ✨')}
 // Every visible object reacts to a tap. Capture phase adds its own effect without cancelling its original action.
 const reactedElements=new WeakMap();let reactedId=0;
-const tapSelector='button,a,[role="button"],.panel,.flower,.starPoint,.memoryPhoto,.photoCard,.title,.eyebrow,.lead,.content > *,img,svg,.detectiveMascot,.caseHeader,.clue,.suspectChoices,.navItem,.navBtn,.badge,.chip,.achievement,.giftBox,.envelope,.envFlap,.envSeal,.floatHeart,.particle,.constellation,.garden';
+const tapSelector='button,a,[role="button"],canvas,#particles,.particle,.scene,.panel,.flower,.starPoint,.memoryPhoto,.photoCard,.title,.eyebrow,.lead,.content > *,img,svg,.detectiveMascot,.caseHeader,.clue,.suspectChoices,.navItem,.navBtn,.badge,.chip,.achievement,.giftBox,.envelope,.envFlap,.envSeal,.floatHeart,.particle,.constellation,.garden';
 const tapReactions=[
 {label:'Плюшевый призрак оставил автограф 👻',glyph:'👻'},
 {label:'Фиолетовая искра выбрала именно этот предмет ✦',glyph:'✦'},
@@ -159,7 +159,7 @@ const tapReactions=[
 {label:'Объект получил +1 к волшебности.',glyph:'✧'}
 ];
 document.addEventListener('click',e=>{
- const el=e.target.closest(tapSelector);if(!el||el===document.body||el===document.documentElement)return;
+ const el=e.target.closest(tapSelector)||e.target.closest('.scene')||null;if(!el||el===document.body||el===document.documentElement)return;
  if(el.closest('#wonderFlash,.wonder-ripple,.burst,.wonder-count'))return;
  const r=el.getBoundingClientRect();if(r.width<2||r.height<2)return;
  let id=reactedElements.get(el);if(id===undefined){id=reactedId++;reactedElements.set(el,id);el.classList.add('wonder-ready');}
