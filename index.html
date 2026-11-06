@@ -316,11 +316,7 @@ const finalOrder=[0,2,1,4,3,5],starCoords=[[15,67],[35,32],[50,69],[68,37],[85,7
 
 // Achievement state.
 const achLabels={case:'Детективное дело',chase:'Погоня',sort:'Аномалии',maze:'Лабиринт',signal:'Сигнал',ghost:'Призраки',cipher:'Шифр',witness:'Допрос',rune:'Портал',sandwich:'Перекус',wolf:'Волчья ночь',valya:'Баба Валя',stability:'Стабильность',sock:'Носок',allTomes:'30 томов',heart:'Сердце поймано',garden:'Сад расцвёл',stars:'Звёздная карта',memory:'Память солнышка',mail:'Почта желаний',fish:'Облачный аквариум',secrets:'Тайная комната',drawing:'Созвездие нарисовано',letter:'Письмо прочитано'};function unlock(key){if(!achLabels[key])return;const d=store.read();d.achievements=d.achievements||[];if(!d.achievements.includes(key)){d.achievements.push(key);store.write('achievements',d.achievements);refreshAchievements();toast('Достижение открыто: '+achLabels[key])}}function refreshAchievements(){const a=store.read().achievements||[];$$('.achievement').forEach(el=>el.classList.toggle('unlocked',a.includes(el.dataset.ach)))}refreshAchievements();
-// Chapter 14: interactive Journal No. 3 symbol lock.
-let journalStep=0;const journalCode=['☾','✦','♧','🐾'];
-function resetJournal(){journalStep=0;$('#journalProgress').textContent='0 / 4';$('#journalResult').textContent='Код ещё закрыт.';$('#journalHint').textContent='Подсказка: сначала луна, потом искра, лист и след.';$$('[data-journal]').forEach(b=>b.classList.remove('correct'))}
-$$('[data-journal]').forEach(b=>b.addEventListener('click',()=>{if(journalStep>=4)return;const value=b.dataset.journal;if(value===journalCode[journalStep]){b.classList.add('correct');journalStep++;$('#journalProgress').textContent=journalStep+' / 4';if(journalStep===4){$('#journalResult').textContent='Дневник открыт! Диппер оставил тебе секретное пожелание. ♡';unlock('journal')}}else{resetJournal();$('#journalHint').textContent='Не тот символ. Дневник мигнул и сбросил последовательность.'}}));
-$('#journalReset').addEventListener('click',resetJournal);
+// Journal lock is handled by the independent fail-safe controller below.
 // Chapter 15: tune a three-channel ghost radio.
 const tune=[3,7,2],target=[5,2,8];
 $$('[data-tune]').forEach(b=>b.addEventListener('click',()=>{const i=Number(b.dataset.tune);tune[i]=(tune[i]+Number(b.dataset.dir)+10)%10;$('#tune'+i).textContent=String(tune[i]).padStart(2,'0');$('#radioStatus').textContent='НАСТРОЙКА';$('#radioResult').textContent='Сигнал меняется…'}));
@@ -333,6 +329,92 @@ $('#helpBtn').addEventListener('click',()=>$('#helpModal').classList.add('show')
 if(progressState.flowers){$$('.flower').forEach((b,i)=>{if(progressState.flowers.includes(i))b.classList.add('bloomed')})}
 // Start at requested hash if a valid chapter was linked.
 const m=location.hash.match(/chapter-(\d+)/);if(m){const n=Math.max(1,Math.min(32,Number(m[1])))-1;current=0;go(n)}else{progress.style.width=(1/32*100)+'%'}
+})();
+</script>
+<script>
+/* Independent fail-safe for chapter navigation, the Mystery Shack journal and radio.
+   It runs separately so an unrelated error in the main story script cannot disable these. */
+(()=> {
+  'use strict';
+  const all=(q,root=document)=>Array.from(root.querySelectorAll(q));
+  const one=(q,root=document)=>root.querySelector(q);
+  const scenes=all('[data-scene]');
+  if(!scenes.length)return;
+  let current=Math.max(0,scenes.findIndex(x=>x.classList.contains('active')));
+  let journalStep=0;
+  const journalCode=['☾','✦','♧','🐾'];
+  const tune=[3,7,2],target=[5,2,8];
+  function note(id,value){const el=one('#'+id);if(el)el.textContent=value}
+  function showChapter(index){
+    index=Math.max(0,Math.min(scenes.length-1,index));
+    scenes.forEach((scene,i)=>{scene.classList.toggle('active',i===index);scene.classList.remove('leaving')});
+    all('.navBtn').forEach(b=>b.classList.toggle('active',Number(b.dataset.nav)===index));
+    const counter=one('#chapterCounter'),bar=one('#progressFill'),viewport=one('#viewport');
+    if(counter)counter.textContent=String(index+1).padStart(2,'0')+' / '+scenes.length;
+    if(bar)bar.style.width=((index+1)/scenes.length*100)+'%';
+    if(viewport)viewport.scrollTop=0;
+    current=index;
+    try{history.replaceState(null,'','#chapter-'+(index+1))}catch(_){}
+  }
+  function resetJournal(message='Код ещё закрыт.'){
+    journalStep=0;note('journalProgress','0 / 4');note('journalResult',message);
+    note('journalHint','Подсказка: сначала луна, потом искра, лист и след.');
+    all('[data-journal]').forEach(b=>b.classList.remove('correct'));
+  }
+  // Add a guaranteed next-chapter control even if the main script stopped early.
+  scenes.forEach((scene,i)=>{
+    if(i===0||i===scenes.length-1)return;
+    const exists=all('button',scene).some(b=>/Продолжить историю|Открыть подарок/.test(b.textContent));
+    if(!exists){
+      const b=document.createElement('button');b.type='button';b.className='ghost fallback-next';
+      b.textContent=i===scenes.length-2?'Открыть подарок ✦':'Продолжить историю · '+String(i+2).padStart(2,'0')+' / '+scenes.length;
+      b.addEventListener('click',()=>showChapter(i+1));
+      const content=one('.content',scene)||scene;content.append(b);
+    }
+  });
+  // Capture phase makes this controller independent of broken/missing target handlers.
+  document.addEventListener('click',e=>{
+    const symbol=e.target.closest('[data-journal]');
+    if(symbol){
+      e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+      if(journalStep>=4)return;
+      if(symbol.dataset.journal===journalCode[journalStep]){
+        symbol.classList.add('correct');journalStep++;
+        note('journalProgress',journalStep+' / 4');
+        if(journalStep===4){note('journalResult','Дневник открыт! Диппер оставил тебе секретное пожелание. ♡');note('journalHint','Код принят. Тайная заметка открыта ✦');}
+      }else resetJournal('Не тот символ. Дневник мигнул и сбросил последовательность.');
+      return;
+    }
+    if(e.target.closest('#journalReset')){
+      e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();resetJournal();return;
+    }
+    const tuner=e.target.closest('[data-tune]');
+    if(tuner){
+      e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+      const i=Number(tuner.dataset.tune);
+      if(i>=0&&i<3){tune[i]=(tune[i]+Number(tuner.dataset.dir)+10)%10;note('tune'+i,String(tune[i]).padStart(2,'0'));note('radioStatus','НАСТРОЙКА');note('radioResult','Сигнал меняется…');}
+      return;
+    }
+    if(e.target.closest('#radioCheck')){
+      e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+      const ok=tune.every((v,i)=>v===target[i]);
+      note('radioStatus',ok?'СИГНАЛ НАЙДЕН':'ШУМ');
+      note('radioResult',ok?'Связь установлена! Мэйбл передаёт тебе звёздное пожелание. ✨':'Пока не совпало. Проверь подсказки и попробуй ещё.');
+      return;
+    }
+    const nav=e.target.closest('[data-go],.navBtn[data-nav],.fallback-next');
+    const sceneButton=e.target.closest('button');
+    const activeScene=sceneButton&&sceneButton.closest('[data-scene]');
+    const isContinue=sceneButton&&/Продолжить историю|Открыть подарок/.test(sceneButton.textContent);
+    if(nav||isContinue){
+      e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+      if(nav&&nav.matches('.navBtn'))showChapter(Number(nav.dataset.nav));
+      else if(nav&&nav.hasAttribute('data-go'))showChapter(Number(nav.dataset.go));
+      else if(activeScene)showChapter(scenes.indexOf(activeScene)+1);
+    }
+  },true);
+  const hash=location.hash.match(/chapter-(\d+)/);
+  if(hash)showChapter(Number(hash[1])-1);
 })();
 </script>
 </body></html>
