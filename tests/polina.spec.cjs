@@ -47,6 +47,8 @@ test('final chapter scrolls and the gift opens by click and keyboard', async ({ 
 
   await finalScene.evaluate(el => { el.scrollTop = 0; });
   const gift = page.locator('#giftBox');
+  await expect(gift).toBeVisible();
+  await gift.evaluate(el => { el.style.animation = 'none'; });
   await gift.click();
   await expect(gift).toHaveClass(/open/);
   await expect(page.locator('#toast')).toContainText(/самое главное/);
