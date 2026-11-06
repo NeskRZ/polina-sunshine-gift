@@ -1,0 +1,8 @@
+{
+  "name":"Маленькая вселенная Полины",
+  "short_name":"Для Солнышка",
+  "description":"Интерактивный подарок, собранный из наших историй и маленьких чудес.",
+  "lang":"ru", "start_url":"./", "scope":"./", "display":"standalone", "orientation":"any",
+  "background_color":"#120d20", "theme_color":"#120d20",
+  "icons":[{"src":"assets/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
