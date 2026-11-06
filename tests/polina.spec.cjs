@@ -6,6 +6,7 @@ test.beforeEach(async ({ page }) => {
 
 async function openApp(page, path = '/') {
   await page.goto(path, { waitUntil: 'domcontentloaded' });
+  await expect.poll(() => page.evaluate(() => window.__polinaMainReady)).toBe(true);
 }
 
 test('all 31 chapters remain reachable in order without runtime errors', async ({ page }) => {
