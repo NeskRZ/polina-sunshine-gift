@@ -333,6 +333,154 @@ const m=location.hash.match(/chapter-(\d+)/);if(m){const n=Math.max(1,Math.min(s
 window.__polinaMainReady=true;
 })();
 </script>
-
+<script>
+/* Independent fail-safe for chapter navigation, the Mystery Shack journal and radio.
+   It runs separately so an unrelated error in the main story script cannot disable these. */
+(()=> {
+  'use strict';
+  const all=(q,root=document)=>Array.from(root.querySelectorAll(q));
+  const one=(q,root=document)=>root.querySelector(q);
+  const scenes=all('.scene');
+  if(!scenes.length)return;
+  let current=Math.max(0,scenes.findIndex(x=>x.classList.contains('active')));
+  let journalStep=0;
+  const journalCode=['☾','✦','♧','🐾'];
+  const tune=[3,7,2],target=[5,2,8];
+  const constellationOrder=[0,2,1,4,3,5];let constellationStep=0;
+  let giftOpened=!!one('#giftBox')?.classList.contains('open');
+  function saveAchievement(key){
+    try{const k='polina-universe-progress-v4',data=JSON.parse(localStorage.getItem(k)||'{}');data.achievements=Array.isArray(data.achievements)?data.achievements:[];if(!data.achievements.includes(key))data.achievements.push(key);localStorage.setItem(k,JSON.stringify(data))}catch(_){}
+  }
+  function showToast(message){const el=one('#toast');if(!el)return;el.textContent=message;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2600)}
+  function finalBurst(count=45){
+    for(let i=0;i<count;i++){const x=document.createElement('i');x.className='burst';x.textContent=['♡','✦','✧','♥','❀'][i%5];x.style.left=Math.random()*innerWidth+'px';x.style.top=(innerHeight+20)+'px';x.style.fontSize=(12+Math.random()*19)+'px';x.style.setProperty('--x',(Math.random()*innerWidth-innerWidth/2)+'px');x.style.setProperty('--y',(-innerHeight-Math.random()*300)+'px');document.body.append(x);setTimeout(()=>x.remove(),1100)}
+  }
+  function drawFinalLine(){
+    const box=one('#finalConstellation'),line=one('#constellationLine');if(!box||!line)return;
+    const br=box.getBoundingClientRect();
+    const points=constellationOrder.slice(0,constellationStep).map(index=>{const star=one('[data-star="'+index+'"]');if(!star)return'';const r=star.getBoundingClientRect();return (((r.left+r.width/2-br.left)/br.width)*100).toFixed(2)+','+(((r.top+r.height/2-br.top)/br.height)*100).toFixed(2)}).filter(Boolean).join(' ');
+    line.setAttribute('points',points);
+  }
+  addEventListener('resize',drawFinalLine);
+  function note(id,value){const el=one('#'+id);if(el)el.textContent=value}
+  function showChapter(index){
+    index=Math.max(0,Math.min(scenes.length-1,index));
+    scenes.forEach((scene,i)=>{scene.classList.toggle('active',i===index);scene.classList.remove('leaving')});
+    all('.navBtn').forEach(b=>b.classList.toggle('active',Number(b.dataset.nav)===index));
+    const counter=one('#chapterCounter'),bar=one('#progressFill'),viewport=one('#viewport');
+    if(counter)counter.textContent=String(index+1).padStart(2,'0')+' / '+scenes.length;
+    if(bar)bar.style.width=((index+1)/scenes.length*100)+'%';
+    if(viewport)viewport.scrollTop=0;
+    current=index;
+    try{history.replaceState(null,'','#chapter-'+(index+1))}catch(_){}
+  }
+  function resetJournal(message='Код ещё закрыт.'){
+    journalStep=0;note('journalProgress','0 / 4');note('journalResult',message);
+    note('journalHint','Подсказка: сначала луна, потом искра, лист и след.');
+    all('[data-journal]').forEach(b=>b.classList.remove('correct'));
+  }
+  // Add a guaranteed next-chapter control even if the main script stopped early.
+  scenes.forEach((scene,i)=>{
+    if(i===0||i===scenes.length-1)return;
+    const exists=all('button',scene).some(b=>/Продолжить историю|Открыть подарок/.test(b.textContent));
+    if(!exists){
+      const b=document.createElement('button');b.type='button';b.className='ghost fallback-next';
+      b.textContent=i===scenes.length-2?'Открыть подарок ✦':'Продолжить историю · '+String(i+2).padStart(2,'0')+' / '+scenes.length;
+      b.addEventListener('click',()=>showChapter(i+1));
+      const content=one('.content',scene)||scene;content.append(b);
+    }
+  });
+  // Capture phase makes this controller independent of broken/missing target handlers.
+  document.addEventListener('click',e=>{
+    const symbol=e.target.closest('[data-journal]');
+    if(symbol){
+      e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+      if(journalStep>=4)return;
+      if(symbol.dataset.journal===journalCode[journalStep]){
+        symbol.classList.add('correct');journalStep++;
+        note('journalProgress',journalStep+' / 4');
+        if(journalStep===4){note('journalResult','Дневник открыт! Диппер оставил тебе секретное пожелание. ♡');note('journalHint','Код принят. Тайная заметка открыта ✦');}
+      }else resetJournal('Не тот символ. Дневник мигнул и сбросил последовательность.');
+      return;
+    }
+    if(e.target.closest('#journalReset')){
+      e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();resetJournal();return;
+    }
+    const tuner=e.target.closest('[data-tune]');
+    if(tuner){
+      e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+      const i=Number(tuner.dataset.tune);
+      if(i>=0&&i<3){tune[i]=(tune[i]+Number(tuner.dataset.dir)+10)%10;note('tune'+i,String(tune[i]).padStart(2,'0'));note('radioStatus','НАСТРОЙКА');note('radioResult','Сигнал меняется…');}
+      return;
+    }
+    if(e.target.closest('#radioCheck')){
+      e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+      const ok=tune.every((v,i)=>v===target[i]);
+      note('radioStatus',ok?'СИГНАЛ НАЙДЕН':'ШУМ');
+      note('radioResult',ok?'Связь установлена! Мэйбл передаёт тебе звёздное пожелание. ✨':'Пока не совпало. Проверь подсказки и попробуй ещё.');
+      return;
+    }
+    const star=e.target.closest('[data-star]');
+    if(star){
+      e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+      const index=Number(star.dataset.star);
+      if(constellationStep>=6)return;
+      if(index!==constellationOrder[constellationStep]){
+        constellationStep=0;all('[data-star]').forEach(b=>b.classList.remove('done'));drawFinalLine();
+        note('finalConstellationNote','Порядок сбился. Начни заново: 1 → 3 → 2 → 5 → 4 → 6.');return;
+      }
+      star.classList.add('done');constellationStep++;drawFinalLine();
+      note('finalConstellationNote',constellationStep===6?'Созвездие собрано! Теперь открой финал.':'Искра '+constellationStep+'/6. Линия соединяет центры звёзд.');
+      if(constellationStep===6)saveAchievement('allTomes');
+      return;
+    }
+    if(e.target.closest('#finalTom')){
+      e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+      if(constellationStep!==6){note('finalTomNote','Сначала собери созвездие в порядке 1 → 3 → 2 → 5 → 4 → 6.');return;}
+      note('finalTomNote','Тридцать томов, тридцать миров и одна Полина, ради которой всё это придумано. С днём рождения, Солнышко! 💜');
+      saveAchievement('allTomes');finalBurst(40);return;
+    }
+    if(e.target.closest('#giftBox')){
+      e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+      const gift=one('#giftBox');if(!gift)return;
+      if(!giftOpened){giftOpened=true;gift.classList.add('open');try{localStorage.setItem('polina-universe-gift-open','1')}catch(_){}finalBurst(30);showToast('Подарок открыт. Внутри самое главное: ты. ♡');}
+      else{finalBurst(65);showToast('Ты и есть моё самое любимое чудо. ☀️');}
+      return;
+    }
+    if(e.target.closest('#finalMagic')){
+      e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+      finalBurst(65);showToast('Ты и есть моё самое любимое чудо. ☀️');return;
+    }
+    const nav=e.target.closest('[data-go],.navBtn[data-nav],.fallback-next');
+    const sceneButton=e.target.closest('button');
+    const activeScene=sceneButton&&sceneButton.closest('[data-scene]');
+    const isContinue=sceneButton&&/Продолжить историю|Открыть подарок/.test(sceneButton.textContent);
+    if(nav||isContinue){
+      e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+      if(nav&&nav.matches('.navBtn'))showChapter(Number(nav.dataset.nav));
+      else if(nav&&nav.hasAttribute('data-go'))showChapter(Number(nav.dataset.go));
+      else if(activeScene)showChapter(scenes.indexOf(activeScene)+1);
+    }
+  },true);
+  if(!window.__polinaMainReady){
+    const particleLayer=one('#particles'),meteorLayer=one('#meteorLayer');
+    if(particleLayer&&!particleLayer.querySelector('.particle')){
+      for(let i=0;i<26;i++){const p=document.createElement('i');p.className='particle';p.style.left=Math.random()*100+'%';p.style.top=Math.random()*100+'%';p.style.width=p.style.height=(1+Math.random()*3)+'px';p.style.animationDuration=(12+Math.random()*18)+'s';p.style.animationDelay=(-Math.random()*20)+'s';p.style.setProperty('--drift',(Math.random()*100-50)+'px');particleLayer.append(p);}
+    }
+    if(meteorLayer){const meteor=()=>{if(document.hidden)return;const m=document.createElement('i');m.className='shooting-star';m.style.left=(Math.random()*82+5)+'%';m.style.top=(Math.random()*38+3)+'%';m.style.setProperty('--shoot-x',(130+Math.random()*170)+'px');m.style.setProperty('--shoot-y',(100+Math.random()*150)+'px');meteorLayer.append(m);setTimeout(()=>m.remove(),2100);};setTimeout(meteor,700);setInterval(meteor,5200);}
+    document.addEventListener('click',e=>{
+      const el=e.target.closest('button,a,[role="button"],.scene,.panel,.content > *,img,svg,.flower,.starPoint,.memoryPhoto,.achievement,.giftBox,.clue,.floatHeart');
+      if(!el||el.closest('#wonderFlash,.wonder-ripple,.burst,.tap-stamp,.wonder-count'))return;
+      const r=el.getBoundingClientRect();if(r.width<2||r.height<2)return;
+      el.classList.remove('wonder-tap');void el.offsetWidth;el.classList.add('wonder-tap');setTimeout(()=>el.classList.remove('wonder-tap'),520);
+      const x=Math.max(12,Math.min(innerWidth-12,e.clientX||r.left+r.width/2)),y=Math.max(12,Math.min(innerHeight-12,e.clientY||r.top+r.height/2));
+      const stamp=document.createElement('span');stamp.className='tap-stamp';stamp.textContent=['✦','♡','👻','✧','❀'][Math.floor(Math.random()*5)];stamp.style.left=x+'px';stamp.style.top=y+'px';document.body.append(stamp);setTimeout(()=>stamp.remove(),850);
+      const toast=one('#toast');if(toast){toast.textContent=['Маленькая искра для тебя ✦','Этот уголок тоже хранит секрет ♡','Космический привет пойман ✨'][Math.floor(Math.random()*3)];toast.classList.add('show');clearTimeout(window.__polinaFallbackToast);window.__polinaFallbackToast=setTimeout(()=>toast.classList.remove('show'),1800);}
+    },true);
+  }
+  const hash=location.hash.match(/chapter-(\d+)/);
+  if(hash)showChapter(Number(hash[1])-1);
+})();
+</script>
 </body></html>
 
