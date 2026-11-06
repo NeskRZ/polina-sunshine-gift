@@ -73,7 +73,7 @@
 .wonder-count{position:fixed;right:13px;top:calc(74px + var(--safeT));z-index:25;border:1px solid #d9b6ef55;border-radius:20px;padding:6px 10px;background:#21152bc9;color:#ead3ff;font-size:9px;letter-spacing:.12em;backdrop-filter:blur(10px)}
 .wonder-ripple{position:fixed;z-index:74;pointer-events:none;border:1px solid #f3caff;border-radius:50%;width:12px;height:12px;transform:translate(-50%,-50%);animation:wonderRipple .8s ease-out forwards}
 @keyframes wonderRipple{to{width:150px;height:150px;opacity:0;border-width:1px}}
-</style>
+.wonder-ready{cursor:pointer!important;touch-action:manipulation}.wonder-tap{animation:wonderTapPop .48s cubic-bezier(.2,.8,.25,1)!important;transform-origin:center}@keyframes wonderTapPop{0%{filter:brightness(1)}35%{filter:brightness(1.65) drop-shadow(0 0 15px #d9a5ff);transform:scale(1.035)}100%{filter:brightness(1);transform:scale(1)}}.tap-stamp{position:fixed;z-index:95;pointer-events:none;transform:translate(-50%,-50%);font-size:24px;color:#f5d5ff;text-shadow:0 0 14px #d58aff;animation:tapStamp .8s ease-out forwards}@keyframes tapStamp{0%{opacity:0;scale:.2;rotate:-30deg}25%{opacity:1;scale:1.5;rotate:15deg}100%{opacity:0;scale:.35;translate:0 -55px}}</style>
 </head>
 <body>
 <div id="universe"><canvas id="stars"></canvas><div id="grain"></div><div id="particles"></div><div id="floatLayer"></div>
@@ -145,7 +145,32 @@ const wonderLines=[
 ];
 let wonderCount=0;const wonderFlash=document.createElement('div');wonderFlash.id='wonderFlash';document.body.append(wonderFlash);const wonderBadge=document.createElement('div');wonderBadge.className='wonder-count';wonderBadge.textContent='СЕКРЕТЫ 00 / 100';document.body.append(wonderBadge);
 function microWonder(x,y){if(wonderCount>=100)return;const index=wonderCount++;const family=Math.floor(index/5),variant=index%5;wonderBadge.textContent='СЕКРЕТЫ '+String(wonderCount).padStart(2,'0')+' / 100';const line=wonderLines[family][variant];const ripple=document.createElement('i');ripple.className='wonder-ripple';ripple.style.left=x+'px';ripple.style.top=y+'px';document.body.append(ripple);setTimeout(()=>ripple.remove(),850);wonderFlash.style.setProperty('--wx',x+'px');wonderFlash.style.setProperty('--wy',y+'px');wonderFlash.classList.add('on');setTimeout(()=>wonderFlash.classList.remove('on'),240);const icons=['✦','♡','☄','✧','❀','☾','♢','⋆'];for(let i=0;i<7;i++){const p=document.createElement('i');p.className='burst';p.textContent=icons[(index+i)%icons.length];p.style.left=x+'px';p.style.top=y+'px';p.style.setProperty('--x',(Math.random()*150-75)+'px');p.style.setProperty('--y',(Math.random()*150-75)+'px');document.body.append(p);setTimeout(()=>p.remove(),1000)}toast(line);if(wonderCount===100)toast('Все 100 маленьких чудес найдены. Но сюрпризы ещё не закончились ✨')}
-document.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||e.pointerType==='pen'){if(e.target.closest('button,a,input,textarea,.lightbox,.modalShade,.navBtn,.floatHeart,.starPoint,.flower,[data-photo]'))return;microWonder(e.clientX,e.clientY)}},{passive:true});
+// Every visible object reacts to a tap. Capture phase adds its own effect without cancelling its original action.
+const reactedElements=new WeakMap();let reactedId=0;
+const tapSelector='button,a,[role="button"],.panel,.flower,.starPoint,.memoryPhoto,.photoCard,.title,.eyebrow,.lead,.content > *,img,svg,.detectiveMascot,.caseHeader,.clue,.suspectChoices,.navItem,.navBtn,.badge,.chip,.achievement,.giftBox,.envelope,.envFlap,.envSeal,.floatHeart,.particle,.constellation,.garden';
+const tapReactions=[
+{label:'Плюшевый призрак оставил автограф 👻',glyph:'👻'},
+{label:'Фиолетовая искра выбрала именно этот предмет ✦',glyph:'✦'},
+{label:'Секретная кнопка? Она сама не знала, что кнопка.',glyph:'?'},
+{label:'Маленький дракон проверил объект на вкус 🐉',glyph:'🐉'},
+{label:'Обнаружен портал размером с кончик пальца.',glyph:'◈'},
+{label:'Космический кот поставил печать одобрения 🐾',glyph:'🐾'},
+{label:'Эта деталь хранит один крошечный секрет.',glyph:'♡'},
+{label:'Объект получил +1 к волшебности.',glyph:'✧'}
+];
+document.addEventListener('click',e=>{
+ const el=e.target.closest(tapSelector);if(!el||el===document.body||el===document.documentElement)return;
+ if(el.closest('#wonderFlash,.wonder-ripple,.burst,.wonder-count'))return;
+ const r=el.getBoundingClientRect();if(r.width<2||r.height<2)return;
+ let id=reactedElements.get(el);if(id===undefined){id=reactedId++;reactedElements.set(el,id);el.classList.add('wonder-ready');}
+ el.classList.remove('wonder-tap');void el.offsetWidth;el.classList.add('wonder-tap');setTimeout(()=>el.classList.remove('wonder-tap'),520);
+ const x=Math.max(12,Math.min(innerWidth-12,e.clientX||r.left+r.width/2));
+ const y=Math.max(12,Math.min(innerHeight-12,e.clientY||r.top+r.height/2));
+ const reaction=tapReactions[(id+Math.floor(Math.random()*tapReactions.length))%tapReactions.length];
+ const stamp=document.createElement('span');stamp.className='tap-stamp';stamp.textContent=reaction.glyph;stamp.style.left=x+'px';stamp.style.top=y+'px';document.body.append(stamp);setTimeout(()=>stamp.remove(),850);
+ microWonder(x,y);
+},{capture:true});
+
 // Atmospheric motes.
 for(let i=0;i<22;i++){const p=document.createElement('i');p.className='particle';p.style.left=Math.random()*100+'%';p.style.top=Math.random()*100+'%';p.style.width=p.style.height=(1+Math.random()*3)+'px';p.style.animationDuration=(13+Math.random()*19)+'s';p.style.animationDelay=(-Math.random()*24)+'s';p.style.setProperty('--drift',(Math.random()*100-50)+'px');$('#particles').append(p)}
 function burst(x,y,count=12){for(let i=0;i<count;i++){const b=document.createElement('i');b.className='burst';b.textContent=['✦','♡','·','✧'][i%4];b.style.left=x+'px';b.style.top=y+'px';b.style.setProperty('--x',(Math.random()*130-65)+'px');b.style.setProperty('--y',(Math.random()*130-65)+'px');document.body.append(b);setTimeout(()=>b.remove(),1000)}}
