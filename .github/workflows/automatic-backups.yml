@@ -1,0 +1,37 @@
+name: Automatic source backups
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: automatic-source-backups
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the exact source revision
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create an immutable timestamped backup tag
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          short_sha="${SOURCE_SHA:0:7}"
+          timestamp="$(date -u +'%Y%m%d-%H%M%S')"
+          tag="backup-${timestamp}-${short_sha}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$tag" "$SOURCE_SHA" -m "Automatic source backup of ${SOURCE_SHA}"
+          git push origin "refs/tags/$tag"
