@@ -23,7 +23,8 @@ const viewportEnd = html.indexOf('</main>');
 const navStart = html.indexOf('<nav class="bottomNav"');
 assert.ok(finalStart >= 0 && finalStart < viewportEnd, 'Final chapter must be inside the scrollable viewport');
 assert.ok(navStart > viewportEnd, 'Bottom navigation must be outside the scrollable viewport');
-assert.match(html, /\.scene\[data-scene=["']30["']\][^{]*\{[^}]*overflow-y:auto/s, 'Final chapter must have vertical scrolling');
+assert.match(html, /\.scene\[data-scene=["']30["']\][^{]*\{[^}]*overflow-y:auto!important/s, 'Final chapter must have vertical scrolling');
+assert.match(html, /\.scene\[data-scene=["']30["']\][^{]*\{[^}]*align-items:flex-start!important/s, 'Final chapter content must start at the top of the viewport');
 
 const app = scripts.join('\n');
 assert.doesNotMatch(app, /(^|[^$])\$\([^)]*\)\.forEach/, 'Use the collection selector $ before calling forEach');
