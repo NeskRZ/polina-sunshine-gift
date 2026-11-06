@@ -141,9 +141,8 @@
 #universe .signalButtons button.lit{background:linear-gradient(145deg,#f2c8ff,#b77ad8)!important;background-color:#c18be5!important;color:#281534!important;box-shadow:0 0 0 3px #e6b5ff55,0 0 28px #d7a5ff!important;transform:scale(1.16)!important;filter:brightness(1.2)!important}
 #giftBox{z-index:20!important;position:relative!important;cursor:pointer!important;pointer-events:auto!important}
 /* Final page: keep the whole birthday scene reachable on touch screens. */
-.scene[data-scene="30"]{display:block!important;height:100%!important;min-height:100%!important;max-height:100%!important;align-items:initial;justify-content:initial;overflow-x:hidden!important;overflow-y:scroll!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;pointer-events:auto!important;z-index:3}
-.scene[data-scene="30"]>.content{display:block;width:min(720px,100%);min-height:100%;margin:0 auto;padding-bottom:calc(150px + var(--safeB))!important}
-.scene[data-scene="30"] #giftBox{position:relative!important;z-index:30!important;pointer-events:auto!important;touch-action:manipulation!important;cursor:pointer!important}
+.scene[data-scene="30"]{align-items:flex-start;justify-content:flex-start;overflow-x:hidden;overflow-y:auto;touch-action:pan-y;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain}
+.scene[data-scene="30"]>.content{flex:0 0 auto;width:min(720px,100%);margin:0 auto;padding-bottom:calc(150px + var(--safeB))!important}
 </style>
 </head>
 <body>
