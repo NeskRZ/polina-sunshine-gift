@@ -26,7 +26,7 @@ assert.ok(navStart > viewportEnd, 'Bottom navigation must be outside the scrolla
 assert.match(html, /\.scene\[data-scene=["']30["']\][^{]*\{[^}]*overflow-y:auto/s, 'Final chapter must have vertical scrolling');
 
 const app = scripts.join('\n');
-assert.doesNotMatch(app, /\$\([^)]*\)\.forEach/, 'Use the collection selector $ before calling forEach');
+assert.doesNotMatch(app, /(^|[^$])\$\([^)]*\)\.forEach/, 'Use the collection selector $ before calling forEach');
 assert.match(app, /\$\(['"]#giftBox['"]\)\.addEventListener\(['"]click['"],\s*openGift\)/, 'Gift must respond to click');
 assert.match(app, /\$\(['"]#giftBox['"]\)\.addEventListener\(['"]keydown['"]/, 'Gift must respond to keyboard activation');
 assert.match(app, /function go\(/, 'Chapter navigation handler missing');
