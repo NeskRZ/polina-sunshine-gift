@@ -1,10 +1,18 @@
 const { test, expect } = require('@playwright/test');
 
+test.beforeEach(async ({ page }) => {
+  await page.route(/^https:\/\/fonts\.(googleapis|gstatic)\.com\//, route => route.abort());
+});
+
+async function openApp(page, path = '/') {
+  await page.goto(path, { waitUntil: 'domcontentloaded' });
+}
+
 test('all 31 chapters remain reachable in order without runtime errors', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   const pageErrors = [];
   page.on('pageerror', error => pageErrors.push(error.message));
-  await page.goto('/');
+  await openApp(page);
   await expect(page.locator('.scene')).toHaveCount(31);
 
   for (let i = 0; i <= 30; i++) {
@@ -23,7 +31,7 @@ test('all 31 chapters remain reachable in order without runtime errors', async (
 
 test('final chapter scrolls and the gift opens by click and keyboard', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/#chapter-31');
+  await openApp(page, '/#chapter-31');
   const finalScene = page.locator('.scene[data-scene="30"]');
   await expect(finalScene).toHaveClass(/active/);
 
@@ -47,7 +55,7 @@ test('final chapter scrolls and the gift opens by click and keyboard', async ({ 
 });
 
 test('journal puzzle accepts the intended sequence', async ({ page }) => {
-  await page.goto('/#chapter-15');
+  await openApp(page, '/#chapter-15');
   for (const symbol of ['☾', '✦', '♧', '🐾']) {
     await page.locator('[data-journal]').filter({ hasText: symbol }).click();
   }
@@ -55,7 +63,7 @@ test('journal puzzle accepts the intended sequence', async ({ page }) => {
 });
 
 test('radio puzzle reaches the intended frequencies', async ({ page }) => {
-  await page.goto('/#chapter-16');
+  await openApp(page, '/#chapter-16');
   for (let i = 0; i < 2; i++) await page.locator('[data-tune="0"][data-dir="1"]').click();
   for (let i = 0; i < 5; i++) await page.locator('[data-tune="1"][data-dir="-1"]').click();
   for (let i = 0; i < 6; i++) await page.locator('[data-tune="2"][data-dir="1"]').click();
@@ -67,7 +75,7 @@ test('radio puzzle reaches the intended frequencies', async ({ page }) => {
 });
 
 test('last constellation and finale interaction work', async ({ page }) => {
-  await page.goto('/#chapter-30');
+  await openApp(page, '/#chapter-30');
   for (const star of [0, 2, 1, 4, 3, 5]) {
     await page.locator('[data-star="' + star + '"]').click();
   }
