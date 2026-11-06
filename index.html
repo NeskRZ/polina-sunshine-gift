@@ -97,6 +97,15 @@
 
 /* Global touch controls: consistent contrast on Android WebView and Chrome. */
 #universe button{appearance:none;-webkit-appearance:none;color:inherit!important;background:transparent!important;border:0!important;outline:0!important;box-shadow:none!important;text-shadow:none!important;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+
+/* Keep real game controls and chapter navigation visibly button-like. */
+#universe button.primary{background:linear-gradient(115deg,#b6538b66,#6c497b66 58%,#c99a6a33)!important;border:1px solid #f5c6df9c!important;box-shadow:0 8px 35px #d86ba72b,inset 0 1px #ffffff24!important;border-radius:99px!important}
+#universe button.ghost{background:#ffffff09!important;border:1px solid var(--line)!important;box-shadow:none!important;border-radius:99px!important}
+#universe button.memoryTile{background:linear-gradient(145deg,#654067,#2c1d3d)!important;border:1px solid #f5c5df55!important;border-radius:16px!important;box-shadow:inset 0 1px #ffffff22,0 8px 20px #0004!important}
+#universe button.memoryTile.revealed{background:linear-gradient(145deg,#f4c9dd,#bd82ad)!important;color:#4a2849!important}
+#universe button.memoryTile.matched{background:linear-gradient(145deg,#c68da9,#8b648f)!important}
+#universe .evidenceGrid button,#universe .suspectGrid button,#universe .laneControls button,#universe .sortBins button,#universe .mazeControls button,#universe .signalButtons button,#universe .witnessChoices button,#universe .runeKeys button,#universe .ingredientTray button,#universe .wolfChoices button,#universe .valyaChoices button,#universe .stabilityPads button,#universe .sockRooms button,#universe .sockSuspects button{background:linear-gradient(145deg,#58396f,#2b1d40)!important;border:1px solid #c9a4ed66!important;border-radius:12px!important;box-shadow:none!important}
+
 #universe button:disabled{opacity:.58;filter:saturate(.65)}
 #universe button:active{transform:scale(.97);filter:brightness(1.16)}
 #universe button small{color:#fff0fa!important}
