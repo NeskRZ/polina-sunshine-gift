@@ -45,11 +45,18 @@ test('final chapter scrolls and the gift opens by click and keyboard', async ({ 
   await finalScene.evaluate(el => { el.scrollTop = el.scrollHeight; });
   expect(await finalScene.evaluate(el => el.scrollTop)).toBeGreaterThan(0);
 
-  await finalScene.evaluate(el => { el.scrollTop = 0; });
+  await finalScene.evaluate(el => { el.style.scrollBehavior = 'auto'; el.scrollTop = 0; });
   const gift = page.locator('#giftBox');
   await expect(gift).toBeVisible();
-  await gift.evaluate(el => { el.style.animation = 'none'; });
-  await gift.click();
+  await gift.evaluate(el => { el.style.animation = 'none'; el.style.transform = 'none'; });
+  await page.waitForTimeout(900);
+  await gift.scrollIntoViewIfNeeded();
+  const rect = await gift.boundingBox();
+  console.log('GIFT_BOUNDS', JSON.stringify(rect), JSON.stringify(page.viewportSize()));
+  expect(rect).not.toBeNull();
+  expect(rect.y + rect.height / 2).toBeGreaterThan(0);
+  expect(rect.y + rect.height / 2).toBeLessThan(page.viewportSize().height);
+  await page.mouse.click(rect.x + rect.width / 2, rect.y + rect.height / 2);
   await expect(gift).toHaveClass(/open/);
   await expect(page.locator('#toast')).toContainText(/самое главное/);
   await gift.focus();
