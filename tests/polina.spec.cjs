@@ -52,6 +52,15 @@ test('final chapter scrolls and the gift opens by click and keyboard', async ({ 
   await page.waitForTimeout(900);
   await gift.scrollIntoViewIfNeeded();
   const rect = await gift.boundingBox();
+  const layout = await page.evaluate(() => {
+    const scene = document.querySelector('.scene[data-scene="30"]');
+    const content = scene.querySelector('.content');
+    const gift = document.querySelector('#giftBox');
+    const viewport = document.querySelector('#viewport');
+    const box = el => { const r = el.getBoundingClientRect(); return { x:r.x, y:r.y, width:r.width, height:r.height, top:r.top, bottom:r.bottom }; };
+    return { scene:box(scene), content:box(content), gift:box(gift), viewport:box(viewport), scroll:{ scene:scene.scrollTop, viewport:viewport.scrollTop, document:document.scrollingElement.scrollTop }, sceneHeight:{client:scene.clientHeight,scroll:scene.scrollHeight} };
+  });
+  console.log('FINAL_LAYOUT', JSON.stringify(layout));
   console.log('GIFT_BOUNDS', JSON.stringify(rect), JSON.stringify(page.viewportSize()));
   expect(rect).not.toBeNull();
   expect(rect.y + rect.height / 2).toBeGreaterThan(0);
