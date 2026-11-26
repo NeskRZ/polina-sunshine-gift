@@ -21,6 +21,7 @@ test('Sasha greeting is a short four-scene experience with no wish-card grid', a
     sealBackground: getComputedStyle(document.querySelector('#seal')).backgroundImage,
     starSize: (() => { const r = document.querySelector('[data-star]').getBoundingClientRect(); return [r.width, r.height]; })(),
     sealSize: (() => { const r = document.querySelector('#seal').getBoundingClientRect(); return [r.width, r.height]; })(),
+    navSize: (() => { const r = document.querySelector('.side-nav button').getBoundingClientRect(); return [r.width, r.height]; })(),
     horizontalOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
   }));
   expect(cssAudit.ruleCount).toBeGreaterThan(50);
@@ -30,6 +31,8 @@ test('Sasha greeting is a short four-scene experience with no wish-card grid', a
   expect(cssAudit.starSize[1]).toBeGreaterThanOrEqual(44);
   expect(cssAudit.sealSize[0]).toBeGreaterThanOrEqual(44);
   expect(cssAudit.sealSize[1]).toBeGreaterThanOrEqual(44);
+  expect(cssAudit.navSize[0]).toBeGreaterThanOrEqual(44);
+  expect(cssAudit.navSize[1]).toBeGreaterThanOrEqual(44);
   expect(cssAudit.horizontalOverflow).toBeLessThanOrEqual(1);
 
   await page.locator('#begin').click();
@@ -65,10 +68,15 @@ test('Sasha greeting is a short four-scene experience with no wish-card grid', a
 });
 
 test('premium scene layout fits narrow phones without horizontal overflow', async ({ page }) => {
-  await page.setViewportSize({ width: 320, height: 740 });
   await page.goto('/sasha/', { waitUntil: 'domcontentloaded' });
   await expect(page.locator('#cosmos')).toBeAttached();
   await expect(page.locator('.gift-card')).toBeVisible();
-  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-  expect(overflow).toBeLessThanOrEqual(1);
+  for (const width of [320, 360, 390, 430]) {
+    await page.setViewportSize({ width, height: 844 });
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow, 'horizontal overflow at ' + width + 'px').toBeLessThanOrEqual(1);
+    const nav = await page.locator('.side-nav button').first().boundingBox();
+    expect(nav.width, 'navigation hit area at ' + width + 'px').toBeGreaterThanOrEqual(44);
+    expect(nav.height, 'navigation hit area at ' + width + 'px').toBeGreaterThanOrEqual(44);
+  }
 });
