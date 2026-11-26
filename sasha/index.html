@@ -58,8 +58,8 @@ const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){
 function progress(){const max=document.documentElement.scrollHeight-innerHeight;$("#readingProgress").style.width=(max>0?scrollY/max*100:0)+"%";}addEventListener("scroll",progress,{passive:true});progress();
 let sealOpen=false;$("#seal").addEventListener("click",()=>{sealOpen=!sealOpen;$("#sealNote").classList.toggle("show",sealOpen);$("#seal span").textContent=sealOpen?"♥":"✧";});
 const wishes=["Пусть каждый новый день приносит хотя бы одну хорошую новость.","Пусть рядом будут люди, с которыми легко и спокойно.","Пусть мечты находят дорогу в реальность.","Пусть в жизни будет больше свободы выбирать своё.","Пусть счастье чаще прячется в самых обычных днях."];let lit=new Set();
-$$("[data-star]").forEach(b=>b.addEventListener("click",()=>{const n=+b.dataset.star;if(lit.has(n))return;lit.add(n);b.classList.add("active");b.textContent="✦";$("#starMessage").textContent=wishes[n];$("#starHint").textContent=lit.size+" / 5 · "+(lit.size===5?"СОЗВЕЗДИЕ ЗАЖЖЕНО":"ЗВЁЗДЫ ПРОСЫПАЮТСЯ");if(lit.size===5){$("#starMessage").textContent="Пусть всё хорошее обязательно найдёт к тебе дорогу. ✨";const r=$("#constellation").getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,22);}}));
-let giftOpen=false;$("#giftTrigger").addEventListener("click",()=>{if(giftOpen)return;giftOpen=true;$("#giftReveal").classList.add("show");$("#giftTrigger").textContent="ПОДАРОК ОТКРЫТ ♥";$("#giftTrigger").disabled=true;burst(innerWidth/2,innerHeight*.62,34);});
+$("[data-star]").forEach(b=>b.addEventListener("click",()=>{const n=+b.dataset.star,alreadyLit=lit.has(n);if(!alreadyLit)lit.add(n);b.classList.add("active");b.textContent="✦";$("#starMessage").textContent=alreadyLit?wishes[n]:wishes[n];$("#starHint").textContent=lit.size+" / 5 · "+(lit.size===5?"СОЗВЕЗДИЕ ЗАЖЖЕНО":alreadyLit?"ЭТА ЗВЕЗДА УЖЕ ГОРИТ":"ЗВЁЗДЫ ПРОСЫПАЮТСЯ");if(lit.size===5&&!alreadyLit){$("#starMessage").textContent="Пусть всё хорошее обязательно найдёт к тебе дорогу. ✨";const r=$("#constellation").getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,22);}}));
+let giftOpen=false;$("#giftTrigger").setAttribute("aria-expanded","false");$("#giftTrigger").addEventListener("click",()=>{giftOpen=!giftOpen;$("#giftReveal").classList.toggle("show",giftOpen);$("#giftTrigger").setAttribute("aria-expanded",String(giftOpen));$("#giftTrigger").textContent=giftOpen?"СКРЫТЬ ДЕТАЛИ ПОДАРКА　♥":"ОТКРЫТЬ ПОДАРОК　✦";if(giftOpen)burst(innerWidth/2,innerHeight*.62,34);});
 function burst(x,y,count){if(reduced)return;for(let i=0;i<count;i++){const s=document.createElement("span");s.className="tap-flash";s.textContent=["✦","✧","♡","·"][i%4];s.style.left=x+(Math.random()-.5)*150+"px";s.style.top=y+(Math.random()-.5)*70+"px";s.style.animationDelay=Math.random()*.2+"s";document.body.append(s);setTimeout(()=>s.remove(),950);}}
 document.addEventListener("pointerdown",e=>{if(e.target.closest("button"))burst(e.clientX,e.clientY,5);},{passive:true});
 const canvas=$("#cosmos"),ctx=canvas.getContext("2d");let w=0,h=0,dpr=1,stars=[],lastMeteor=0,meteor=null;
@@ -81,7 +81,7 @@ function bind(selector,messages){
   if(used.has(message))throw new Error("Duplicate interaction message");
   used.add(message);notes.push({selector,index:i,message});
   el.dataset.explore=String(notes.length-1);el.dataset.exploreMessage=message;
-  el.classList.add("explore-target");
+  el.classList.add("explore-target");el.removeAttribute("aria-hidden");
   const marker=document.createElementNS("http://www.w3.org/2000/svg","svg");
   marker.setAttribute("viewBox","0 0 16 16");marker.setAttribute("aria-hidden","true");marker.classList.add("explore-marker");
   marker.innerHTML='<path d="M8 1.5 9.8 6.2 14.5 8 9.8 9.8 8 14.5 6.2 9.8 1.5 8 6.2 6.2Z"/>';
