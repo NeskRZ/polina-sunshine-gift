@@ -98,7 +98,7 @@ test('every story detail has its own unique physical click target', async ({ pag
 
     const point = await target.evaluate(el => {
       const r = el.getBoundingClientRect();
-      const fractions = [0.03, 0.07, 0.12, 0.28, 0.5, 0.72, 0.88, 0.93, 0.97];
+      const fractions = [0.5, 0.28, 0.72, 0.12, 0.88, 0.07, 0.93, 0.03, 0.97];
       for (const fy of fractions) {
         for (const fx of fractions) {
           const x = r.left + r.width * fx;
