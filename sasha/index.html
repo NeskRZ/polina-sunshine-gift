@@ -70,10 +70,11 @@ resize();addEventListener("resize",resize,{passive:true});requestAnimationFrame(
 </script>
 <script>
 (()=>{"use strict";
-const $=(q,r=document)=>r.querySelector(q),$=(q,r=document)=>Array.from(r.querySelectorAll(q));
-const toast=$("#detailToast"),notes=[],used=new Set();let toastTimer=0;
+const q=(selector,root=document)=>root.querySelector(selector);
+const qa=(selector,root=document)=>Array.from(root.querySelectorAll(selector));
+const toast=q("#detailToast"),notes=[],used=new Set();let toastTimer=0;
 function bind(selector,messages){
- const nodes=$(selector);
+ const nodes=qa(selector);
  if(nodes.length!==messages.length)throw new Error("Interaction map mismatch: "+selector+" expected "+messages.length+" got "+nodes.length);
  nodes.forEach((el,i)=>{
   const message=messages[i];
@@ -81,7 +82,10 @@ function bind(selector,messages){
   used.add(message);notes.push({selector,index:i,message});
   el.dataset.explore=String(notes.length-1);el.dataset.exploreMessage=message;
   el.classList.add("explore-target");
-  const marker=document.createElementNS("http://www.w3.org/2000/svg","svg");marker.setAttribute("viewBox","0 0 16 16");marker.setAttribute("aria-hidden","true");marker.classList.add("explore-marker");marker.innerHTML='<path d="M8 1.5 9.8 6.2 14.5 8 9.8 9.8 8 14.5 6.2 9.8 1.5 8 6.2 6.2Z"/>';el.append(marker);
+  const marker=document.createElementNS("http://www.w3.org/2000/svg","svg");
+  marker.setAttribute("viewBox","0 0 16 16");marker.setAttribute("aria-hidden","true");marker.classList.add("explore-marker");
+  marker.innerHTML='<path d="M8 1.5 9.8 6.2 14.5 8 9.8 9.8 8 14.5 6.2 9.8 1.5 8 6.2 6.2Z"/>';
+  el.append(marker);
   if(!el.hasAttribute("role"))el.setAttribute("role","button");
   if(!el.hasAttribute("tabindex"))el.tabIndex=0;
   if(!el.hasAttribute("aria-label"))el.setAttribute("aria-label","Открыть деталь: "+message);
@@ -124,25 +128,24 @@ function show(index){
  toast.textContent=item.message;toast.classList.add("show");
  clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove("show"),3200);
 }
-document.addEventListener("click",e=>{
- if(e.target.closest("button,a,input,textarea,select"))return;
- const target=e.target.closest("[data-explore]");
+document.addEventListener("click",event=>{
+ if(event.target.closest("button,a,input,textarea,select"))return;
+ const target=event.target.closest("[data-explore]");
  if(!target)return;
- e.preventDefault();e.stopPropagation();show(Number(target.dataset.explore));
+ event.preventDefault();event.stopPropagation();show(Number(target.dataset.explore));
 });
-document.addEventListener("keydown",e=>{
- if(e.key!=="Enter"&&e.key!==" ")return;
- const target=e.target.closest("[data-explore]");
+document.addEventListener("keydown",event=>{
+ if(event.key!=="Enter"&&event.key!==" ")return;
+ const target=event.target.closest("[data-explore]");
  if(!target)return;
- e.preventDefault();show(Number(target.dataset.explore));
+ event.preventDefault();show(Number(target.dataset.explore));
 });
-const track=$("#readingTrack"),scenes=$(".scene");
+const track=q("#readingTrack"),scenes=qa(".scene");
 function jumpFromTrack(clientX){
  const rect=track.getBoundingClientRect(),ratio=Math.max(0,Math.min(.999,(clientX-rect.left)/rect.width));
- const index=Math.floor(ratio*scenes.length);
- scenes[index].scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+ scenes[Math.floor(ratio*scenes.length)].scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
 }
-track.addEventListener("click",e=>jumpFromTrack(e.clientX));
-track.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();const current=scenes.findIndex(s=>s.getBoundingClientRect().top<=innerHeight*.5&&s.getBoundingClientRect().bottom>innerHeight*.5);scenes[(current+1)%scenes.length].scrollIntoView({behavior:"smooth",block:"start"});}});
+track.addEventListener("click",event=>jumpFromTrack(event.clientX));
+track.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();const current=scenes.findIndex(scene=>scene.getBoundingClientRect().top<=innerHeight*.5&&scene.getBoundingClientRect().bottom>innerHeight*.5);scenes[(current+1)%scenes.length].scrollIntoView({behavior:"smooth",block:"start"});}});
 })();
 </script></body></html>
