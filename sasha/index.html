@@ -16,6 +16,60 @@ section.content{padding:74px 0}.section-head{text-align:center;margin-bottom:34p
 .modal{position:fixed;inset:0;z-index:10;background:rgba(9,5,9,.82);display:none;place-items:center;padding:22px;backdrop-filter:blur(9px)}.modal.show{display:grid}.modal-card{width:min(460px,100%);padding:34px 25px;border-radius:24px;border:1px solid var(--line);background:linear-gradient(145deg,#4c2437,#21131d);text-align:center;box-shadow:var(--shadow)}.modal-card .big{font-size:48px}.modal-card h3{font-size:28px;font-weight:400;color:var(--gold2);margin:12px 0}.modal-card p{color:#e8d9d0;font:15px/1.7 system-ui,sans-serif}.close{margin-top:12px;background:transparent;color:var(--gold2);border:1px solid var(--line);border-radius:999px;padding:10px 18px}
 @media(max-width:760px){.wishes{grid-template-columns:repeat(3,1fr)}.wish{min-height:112px}.hero{min-height:88svh}}@media(max-width:390px){.wishes{grid-template-columns:repeat(2,1fr)}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* PREMIUM PASS: richer editorial layout, deliberate detail and mobile polish */
+:root{--gold:#e8c98f;--gold2:#fff0cf;--wine:#71334c;--wine2:#a85c75;--line:rgba(232,201,143,.3);--shadow:0 28px 90px rgba(0,0,0,.48)}
+body{background:radial-gradient(ellipse at 50% -12%,rgba(168,92,117,.34),transparent 42%),radial-gradient(ellipse at 0% 55%,rgba(112,48,73,.22),transparent 32%),radial-gradient(ellipse at 100% 78%,rgba(232,201,143,.09),transparent 28%),#160d14}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.08;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E")}
+.hero{min-height:100svh;padding:100px 0 90px;overflow:hidden}
+.hero:before{content:"";position:absolute;width:min(76vw,680px);aspect-ratio:1;border:1px solid rgba(232,201,143,.13);border-radius:50%;box-shadow:0 0 0 28px rgba(232,201,143,.025),0 0 0 58px rgba(232,201,143,.018),inset 0 0 100px rgba(232,201,143,.035);pointer-events:none}
+.hero:after{content:"";position:absolute;inset:26px;border:1px solid rgba(232,201,143,.09);border-radius:26px;pointer-events:none}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{font-size:clamp(76px,15vw,150px);letter-spacing:-.055em;margin:30px 0 26px;background:linear-gradient(115deg,#fff4dc 5%,#d9ad72 48%,#fff0d0 80%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 12px 35px rgba(229,197,139,.12))}
+.eyebrow{font-size:10px;letter-spacing:.34em}
+.hero .sub{max-width:590px;letter-spacing:.015em}
+.pill{padding:12px 20px;background:rgba(232,201,143,.055);backdrop-filter:blur(8px)}
+.primary,.gift-trigger{background:linear-gradient(120deg,#b87583,#7d3a55 55%,#9b5b69);border-color:rgba(255,231,190,.72);box-shadow:0 12px 34px rgba(111,42,68,.38),inset 0 1px rgba(255,255,255,.22);letter-spacing:.035em}
+.primary{padding:16px 28px}
+.primary:hover,.gift-trigger:hover{filter:brightness(1.12)}
+.scrollhint{letter-spacing:.3em}
+.content{position:relative}
+.section-head{margin-bottom:42px}
+.section-head h2{letter-spacing:-.025em}
+.intro-card,.certificate{position:relative;isolation:isolate}
+.intro-card:before,.certificate:before{pointer-events:none}
+.intro-card{background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.018) 55%,rgba(232,201,143,.045));border-color:rgba(232,201,143,.38);box-shadow:0 30px 90px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.08)}
+.intro-card:after{content:"✧";display:block;color:var(--gold);font-size:24px;margin-top:22px;opacity:.85}
+.craft-panel{max-width:900px;margin:0 auto 58px;padding:clamp(24px,4vw,38px);border:1px solid rgba(232,201,143,.24);border-radius:24px;background:linear-gradient(120deg,rgba(94,38,59,.45),rgba(255,255,255,.025));display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;box-shadow:0 22px 70px rgba(0,0,0,.2)}
+.craft-kicker{font:10px system-ui,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.craft-panel h3{font-size:clamp(25px,4vw,36px);font-weight:400;line-height:1.12;color:var(--gold2);margin:12px 0}
+.craft-panel p{font:14px/1.8 system-ui,sans-serif;color:#d4c0ba;margin:0}
+.craft-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.craft-stat{padding:16px 14px;border:1px solid rgba(232,201,143,.2);border-radius:16px;background:rgba(10,5,9,.18)}
+.craft-stat strong{display:block;font:26px Georgia,serif;color:var(--gold2);margin-bottom:5px}
+.craft-stat span{font:10px/1.45 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#c6aeaa}
+.wishes{gap:13px}
+.wish{min-height:142px;border-radius:19px;background:linear-gradient(150deg,rgba(255,255,255,.075),rgba(255,255,255,.015));box-shadow:inset 0 1px rgba(255,255,255,.045);padding:18px 10px}
+.wish:before{content:"";position:absolute;inset:5px;border:1px solid rgba(232,201,143,.075);border-radius:14px;pointer-events:none}
+.wish .symbol{font-size:28px;text-shadow:0 0 22px rgba(232,201,143,.25)}
+.wish.open{background:linear-gradient(145deg,rgba(142,67,94,.55),rgba(39,19,31,.7));box-shadow:0 14px 35px rgba(0,0,0,.2)}
+.wish-note{border-color:rgba(232,201,143,.34);background:linear-gradient(120deg,rgba(104,45,67,.34),rgba(0,0,0,.16));box-shadow:0 18px 48px rgba(0,0,0,.18)}
+.wish-progress{font:11px system-ui,sans-serif;letter-spacing:.12em;color:var(--gold);margin:0 auto 20px;text-align:center;text-transform:uppercase}
+.wish-progress .track{height:3px;max-width:300px;background:rgba(232,201,143,.14);margin:10px auto 0;border-radius:5px;overflow:hidden}
+.wish-progress .fill{height:100%;width:0;background:linear-gradient(90deg,#a85c75,#f4dfb8);transition:width .35s ease}
+.certificate{background:radial-gradient(ellipse at 50% 0%,rgba(207,151,123,.22),transparent 45%),linear-gradient(145deg,#54273d,#21131d 72%);box-shadow:0 32px 100px rgba(0,0,0,.48),inset 0 1px rgba(255,255,255,.12)}
+.certificate:after{font-size:150px;opacity:.75}
+.cert-label{letter-spacing:.32em}
+.cert-value{font-weight:400;letter-spacing:-.045em;text-shadow:0 8px 35px rgba(232,201,143,.18)}
+.cert-placeholder{border-color:rgba(232,201,143,.45);background:rgba(10,5,9,.24)}
+.final{position:relative}
+.final:before{content:"";display:block;width:1px;height:70px;background:linear-gradient(transparent,var(--gold),transparent);margin:0 auto 36px}
+.signature{line-height:1.8}
+.footer{letter-spacing:.22em}
+@media(max-width:760px){.hero{min-height:92svh;padding:86px 0 78px}.hero:after{inset:12px;border-radius:19px}.craft-panel{grid-template-columns:1fr;gap:20px}.wish{min-height:125px}.content{padding:64px 0!important}}
+@media(max-width:390px){.wishes{gap:9px}.wish{min-height:118px;padding:14px 7px}.craft-stat{padding:13px 10px}.hero h1{font-size:76px}}
+@media(prefers-reduced-motion:no-preference){.hero .eyebrow,.hero .ornament,.hero h1,.hero .sub,.hero .pill,.hero .primary{animation:riseIn .85s both}.hero .ornament{animation-delay:.08s}.hero h1{animation-delay:.16s}.hero .sub{animation-delay:.25s}.hero .pill{animation-delay:.34s}.hero .primary{animation-delay:.42s}@keyframes riseIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}}
+
 </style>
 </head>
 <body>
@@ -37,9 +91,23 @@ section.content{padding:74px 0}.section-head{text-align:center;margin-bottom:34p
   <div class="intro-card"><p>Мы, может быть, не всегда часто говорим о таких вещах, но я хочу, чтобы ты знала: я искренне желаю тебе счастья. Пусть в твоей жизни будет больше спокойных дней, приятных неожиданностей, людей, рядом с которыми легко, и возможностей исполнять то, чего действительно хочется. Оставайся собой, береги себя и не забывай радовать себя не только по праздникам. С днём рождения! ❤️</p></div>
  </div>
 </section>
+<section class="content" aria-label="О подарке">
+ <div class="wrap">
+  <div class="craft-panel">
+   <div><div class="craft-kicker">Не готовый шаблон · создано специально для тебя</div><h3>В этом подарке каждая деталь на своём месте</h3><p>Я собрал для тебя отдельную маленькую историю: продумал оформление, сделал 25 отдельных пожеланий, добавил интерактивы и спрятал внутри ещё один сюрприз. Просто листай и открывай всё в своём темпе.</p></div>
+   <div class="craft-stats">
+    <div class="craft-stat"><strong>25</strong><span>личных пожеланий</span></div>
+    <div class="craft-stat"><strong>1 / 1</strong><span>подарок, сделанный для тебя</span></div>
+    <div class="craft-stat"><strong>∞</strong><span>тёплых пожеланий</span></div>
+    <div class="craft-stat"><strong>5 000 ₽</strong><span>главный сюрприз внутри</span></div>
+   </div>
+  </div>
+ </div>
+</section>
 <section class="content" id="wishes">
  <div class="wrap">
   <div class="section-head"><div class="eyebrow">25 маленьких пожеланий</div><h2>Открывай по одному</h2><p>Нажми на любую карточку. Каждая хранит отдельное пожелание для тебя.</p></div>
+  <div class="wish-progress" aria-live="polite"><span id="wishCount">Открыто 0 из 25</span><div class="track"><div class="fill" id="wishFill"></div></div></div>
   <div class="wishes" id="wishesGrid" aria-label="25 пожеланий"></div>
   <div class="wish-note" id="wishNote" aria-live="polite"><div><small>Твоё пожелание</small>Выбери любую карточку выше ✨</div></div>
  </div>
@@ -104,7 +172,9 @@ const wishes=[
 ];
 const symbols=["✦","♡","✧","☼","❀","☾","✺","◇","☆","❋"];
 const grid=document.getElementById("wishesGrid");
-wishes.forEach((wish,i)=>{const b=document.createElement("button");b.className="wish";b.type="button";b.setAttribute("aria-label","Открыть пожелание "+(i+1));b.innerHTML='<span class="num">№ '+String(i+1).padStart(2,"0")+'</span><span class="symbol">'+symbols[i%symbols.length]+'</span><span class="caption">Открыть пожелание</span>';b.addEventListener("click",()=>{document.querySelectorAll(".wish.open").forEach(x=>x.classList.remove("open"));b.classList.add("open");document.getElementById("wishNote").innerHTML='<div><small>Пожелание № '+(i+1)+'</small>'+wish+'</div>';});grid.appendChild(b);});
+const openedWishes=new Set();
+function updateWishProgress(){document.getElementById("wishCount").textContent="Открыто "+openedWishes.size+" из 25";document.getElementById("wishFill").style.width=(openedWishes.size/25*100)+"%";}
+wishes.forEach((wish,i)=>{const b=document.createElement("button");b.className="wish";b.type="button";b.setAttribute("aria-label","Открыть пожелание "+(i+1));b.innerHTML='<span class="num">№ '+String(i+1).padStart(2,"0")+'</span><span class="symbol">'+symbols[i%symbols.length]+'</span><span class="caption">Открыть пожелание</span>';b.addEventListener("click",()=>{document.querySelectorAll(".wish.open").forEach(x=>x.classList.remove("open"));b.classList.add("open");openedWishes.add(i);updateWishProgress();document.getElementById("wishNote").innerHTML='<div><small>Пожелание № '+(i+1)+'</small>'+wish+'</div>';});grid.appendChild(b);});
 const modal=document.getElementById("modal");
 function openModal(){modal.classList.add("show");document.getElementById("modalText").textContent="Пусть в этом году у тебя будет больше поводов улыбаться. Ты заслуживаешь всего самого хорошего.";document.getElementById("closeModal").focus();}
 function closeModal(){modal.classList.remove("show");}
