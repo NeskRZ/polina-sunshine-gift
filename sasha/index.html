@@ -129,6 +129,13 @@ h1,h2,p{margin-top:0}h1{font-size:clamp(76px,17vw,158px);font-weight:400;line-he
 .gift-card.reveal{transform:none!important;transition:opacity .8s}
 .gift-card.reveal.visible{transform:none!important}
 @media(prefers-reduced-motion:reduce){.gift-card.reveal{transition:none}}
+
+/* Reveal effects must not move interactive hitboxes while a visitor taps or tests them. */
+.reveal{transform:none!important;filter:blur(3px);transition:opacity .8s ease,filter .8s ease!important}
+.reveal.visible{transform:none!important;filter:blur(0)}
+.gift-card.reveal{transform:none!important;transition:opacity .8s ease,filter .8s ease!important}
+.gift-card.reveal.visible{transform:none!important}
+@media(prefers-reduced-motion:reduce){.reveal,.gift-card.reveal{filter:none;transition:none!important}}
 </style></head>
 <body><canvas id="cosmos" aria-hidden="true"></canvas><div class="aurora"></div><div class="grain"></div><div class="topline" id="readingTrack" role="button" tabindex="0" aria-label="Перейти к части истории по шкале прогресса"><span id="readingProgress"></span></div><div id="detailToast" role="status" aria-live="polite" aria-atomic="true"></div>
 <nav class="side-nav" aria-label="Навигация"><button type="button" data-jump="0" aria-label="Начало" aria-current="true"></button><button type="button" data-jump="1" aria-label="Поздравление"></button><button type="button" data-jump="2" aria-label="Созвездие"></button><button type="button" data-jump="3" aria-label="Подарок"></button></nav>
