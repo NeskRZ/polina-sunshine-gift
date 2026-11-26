@@ -20,7 +20,7 @@ h1,h2,p{margin-top:0}h1{font-size:clamp(76px,17vw,158px);font-weight:400;line-he
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 
 /* Every visible story detail is an independent, keyboard-accessible interaction. */
-.explore-target{cursor:pointer;touch-action:manipulation;transition:filter .22s,transform .22s,text-shadow .22s}
+.explore-target{position:relative;cursor:pointer;touch-action:manipulation;transition:filter .22s,transform .22s,text-shadow .22s}.explore-marker{position:absolute;right:-7px;top:-5px;width:12px;height:12px;overflow:visible;pointer-events:none;opacity:.52;stroke:var(--gold);stroke-width:1;fill:none;filter:drop-shadow(0 0 4px rgba(232,201,143,.4))}.explore-target:active .explore-marker,.explore-target:focus-visible .explore-marker{opacity:1;transform:rotate(35deg) scale(1.2)}
 .explore-target:focus-visible{outline:1px solid rgba(232,201,143,.8);outline-offset:5px;border-radius:5px}
 .explore-target:active{filter:brightness(1.22);transform:scale(.99)}
 .explore-target:hover{filter:brightness(1.12)}
@@ -79,8 +79,9 @@ function bind(selector,messages){
   const message=messages[i];
   if(used.has(message))throw new Error("Duplicate interaction message");
   used.add(message);notes.push({selector,index:i,message});
-  el.dataset.explore=String(notes.length-1);
+  el.dataset.explore=String(notes.length-1);el.dataset.exploreMessage=message;
   el.classList.add("explore-target");
+  const marker=document.createElementNS("http://www.w3.org/2000/svg","svg");marker.setAttribute("viewBox","0 0 16 16");marker.setAttribute("aria-hidden","true");marker.classList.add("explore-marker");marker.innerHTML='<path d="M8 1.5 9.8 6.2 14.5 8 9.8 9.8 8 14.5 6.2 9.8 1.5 8 6.2 6.2Z"/>';el.append(marker);
   if(!el.hasAttribute("role"))el.setAttribute("role","button");
   if(!el.hasAttribute("tabindex"))el.tabIndex=0;
   if(!el.hasAttribute("aria-label"))el.setAttribute("aria-label","Открыть деталь: "+message);
