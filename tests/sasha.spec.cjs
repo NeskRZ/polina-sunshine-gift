@@ -75,39 +75,41 @@ test('Sasha greeting is a short four-scene experience with no wish-card grid', a
 });
 
 
-test('every story detail has its own clickable action and unique response', async ({ page }) => {
+test('every story detail has its own unique physical click target', async ({ page }) => {
   await page.goto('/sasha/', { waitUntil: 'domcontentloaded' });
+  await page.addStyleTag({ content: 'html { scroll-behavior: auto !important; }' });
   await page.locator('#seal').click();
   await page.locator('#giftTrigger').click();
 
-  const audit = await page.evaluate(() => {
-    const targets = [...document.querySelectorAll('[data-explore]')];
-    const messages = targets.map(el => el.dataset.exploreMessage);
-    const markerCount = document.querySelectorAll('[data-explore] .explore-marker').length;
-    const results = [];
-    for (const el of targets) {
-      el.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
-      results.push({
-        id: el.dataset.explore,
-        expected: el.dataset.exploreMessage,
-        actual: document.querySelector('#detailToast').textContent
-      });
-    }
-    return {
-      count: targets.length,
-      uniqueIds: new Set(targets.map(el => el.dataset.explore)).size,
-      uniqueMessages: new Set(messages).size,
-      markerCount,
-      results
-    };
-  });
+  const count = await page.locator('[data-explore]').count();
+  expect(count).toBeGreaterThanOrEqual(30);
+  const seen = new Set();
 
-  expect(audit.count).toBeGreaterThanOrEqual(30);
-  expect(audit.uniqueIds).toBe(audit.count);
-  expect(audit.uniqueMessages).toBe(audit.count);
-  expect(audit.markerCount).toBe(audit.count);
-  for (const result of audit.results) {
-    expect(result.actual, 'unique action ' + result.id).toBe(result.expected);
+  for (let i = 0; i < count; i++) {
+    const target = page.locator('[data-explore]').nth(i);
+    await target.evaluate(el => el.scrollIntoView({ block: 'center', inline: 'center', behavior: 'auto' }));
+    const expected = await target.getAttribute('data-explore-message');
+    expect(expected).toBeTruthy();
+    expect(seen.has(expected)).toBe(false);
+    seen.add(expected);
+
+    const point = await target.evaluate(el => {
+      const r = el.getBoundingClientRect();
+      const fractions = [0.12, 0.28, 0.5, 0.72, 0.88];
+      for (const fy of fractions) {
+        for (const fx of fractions) {
+          const x = r.left + r.width * fx;
+          const y = r.top + r.height * fy;
+          const hit = document.elementFromPoint(x, y);
+          if (hit && hit.closest('[data-explore]') === el) return { x, y };
+        }
+      }
+      return null;
+    });
+
+    expect(point, 'target ' + i + ' must have an unobstructed physical hit area').not.toBeNull();
+    await page.mouse.click(point.x, point.y);
+    await expect(page.locator('#detailToast')).toHaveText(expected);
   }
 
   await page.locator('#scene0 h1').focus();
