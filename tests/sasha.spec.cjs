@@ -2,43 +2,53 @@ const { test, expect } = require('@playwright/test');
 
 test.beforeEach(async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
 });
 
-test('Sasha gift opens cleanly on mobile with 25 interactive wishes', async ({ page }) => {
+test('Sasha greeting is a short four-scene experience with no wish-card grid', async ({ page }) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('/sasha/', { waitUntil: 'domcontentloaded' });
 
   await expect(page.locator('h1')).toHaveText('Саша');
-  await expect(page.locator('#wishesGrid .wish')).toHaveCount(25);
-  await expect(page.locator('#wishCount')).toHaveText('Открыто 0 из 25');
+  await expect(page.locator('.scene')).toHaveCount(4);
+  await expect(page.locator('[data-star]')).toHaveCount(5);
+  await expect(page.locator('#wishesGrid')).toHaveCount(0);
+  await expect(page.locator('#giftTrigger')).toBeVisible();
 
-  await page.locator('#wishesGrid .wish').nth(0).click();
-  await expect(page.locator('#wishCount')).toHaveText('Открыто 1 из 25');
-  await expect(page.locator('#wishFill')).toHaveCSS('width', /[1-9]/);
+  await page.locator('#begin').click();
+  await expect(page).toHaveURL(/#?$/);
+  await expect(page.locator('#scene1')).toBeInViewport();
 
-  await page.locator('#wishesGrid .wish').nth(24).click();
-  await expect(page.locator('#wishCount')).toHaveText('Открыто 2 из 25');
-  await expect(page.locator('#wishNote')).toContainText('будь счастлива');
+  await page.locator('#seal').click();
+  await expect(page.locator('#sealNote')).toHaveClass(/show/);
+
+  const messages = [
+    'Пусть каждый новый день приносит хотя бы одну хорошую новость.',
+    'Пусть рядом будут люди, с которыми легко и спокойно.',
+    'Пусть мечты находят дорогу в реальность.',
+    'Пусть в жизни будет больше свободы выбирать своё.',
+    'Пусть счастье чаще прячется в самых обычных днях.'
+  ];
+  for (let i = 0; i < 5; i++) {
+    await page.locator('[data-star="' + i + '"]').click();
+    if (i < 4) await expect(page.locator('#starMessage')).toHaveText(messages[i]);
+  }
+  await expect(page.locator('#starHint')).toContainText('5 / 5');
+  await expect(page.locator('#starMessage')).toContainText('Пусть всё хорошее');
 
   await page.locator('#giftTrigger').click();
-  await expect(page.locator('#certDetails')).toBeVisible();
-  await expect(page.locator('#certDetails')).toContainText('5 000 ₽');
+  await expect(page.locator('#giftReveal')).toBeVisible();
   await expect(page.locator('#giftTrigger')).toBeDisabled();
-
-  const dimensions = await page.evaluate(() => ({
-    documentWidth: document.documentElement.scrollWidth,
-    viewportWidth: document.documentElement.clientWidth
-  }));
-  expect(dimensions.documentWidth).toBeLessThanOrEqual(dimensions.viewportWidth + 1);
+  await expect(page.locator('.gift-value')).toHaveText('5 000 ₽');
   expect(errors).toEqual([]);
 });
 
-test('Sasha page keeps the premium layout readable on a narrow phone', async ({ page }) => {
+test('premium scene layout fits narrow phones without horizontal overflow', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 740 });
   await page.goto('/sasha/', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('.craft-panel')).toBeVisible();
-  await expect(page.locator('.certificate')).toBeVisible();
+  await expect(page.locator('#cosmos')).toBeAttached();
+  await expect(page.locator('.gift-card')).toBeVisible();
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
 });
