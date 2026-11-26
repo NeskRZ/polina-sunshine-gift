@@ -31,6 +31,99 @@ h1,h2,p{margin-top:0}h1{font-size:clamp(76px,17vw,158px);font-weight:400;line-he
 #detailToast.show{opacity:1;transform:translate(-50%,0)}
 #detailToast:before{content:"✧";display:block;margin-bottom:3px;color:var(--gold);font-size:15px}
 @media(prefers-reduced-motion:reduce){.explore-target{transition:none}#detailToast{transition:none}}
+
+/* Premium certificate finish: layered foil, engraved frame and a deliberate reveal. */
+.gift-card{
+  isolation:isolate;
+  border:1px solid rgba(255,226,170,.78);
+  outline:1px solid rgba(232,201,143,.16);
+  outline-offset:5px;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(255,225,171,.22),transparent 38%),
+    radial-gradient(ellipse at 100% 100%,rgba(153,77,104,.22),transparent 46%),
+    linear-gradient(145deg,#57263d 0%,#291521 48%,#170e16 100%);
+  box-shadow:0 38px 110px rgba(0,0,0,.58),0 0 55px rgba(232,201,143,.10),inset 0 1px rgba(255,255,255,.2),inset 0 -24px 55px rgba(0,0,0,.18);
+}
+.gift-card:before{
+  inset:12px;
+  border:1px solid rgba(255,226,170,.34);
+  outline:1px solid rgba(255,226,170,.09);
+  outline-offset:4px;
+  background:
+    linear-gradient(45deg,transparent 48%,rgba(255,226,170,.09) 49%,transparent 50%) 0 0/17px 17px,
+    linear-gradient(-45deg,transparent 48%,rgba(255,226,170,.07) 49%,transparent 50%) 0 0/17px 17px;
+}
+.gift-card:after{
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:-45% -70%;
+  pointer-events:none;
+  background:linear-gradient(112deg,transparent 39%,rgba(255,244,214,.025) 45%,rgba(255,244,214,.16) 49%,rgba(255,244,214,.035) 53%,transparent 60%);
+  transform:translateX(-42%) rotate(8deg);
+  animation:certificateFoil 9s ease-in-out infinite;
+}
+.gift-card>*{position:relative;z-index:1}
+@keyframes certificateFoil{0%,18%{transform:translateX(-48%) rotate(8deg)}72%,100%{transform:translateX(48%) rotate(8deg)}}
+.gift-card .gift-icon{
+  width:92px;height:92px;margin:0 auto 22px;
+  display:grid;place-items:center;
+  border:1px solid rgba(255,226,170,.65);border-radius:50%;
+  background:radial-gradient(circle at 35% 28%,rgba(255,245,220,.24),rgba(190,139,91,.08) 48%,rgba(24,13,21,.6) 72%);
+  box-shadow:0 0 0 6px rgba(232,201,143,.055),0 0 38px rgba(232,201,143,.18),inset 0 1px rgba(255,255,255,.28);
+  font-size:43px;
+}
+.gift-card .gift-icon:before{
+  content:"OZON  ·  GIFT EDITION";
+  position:absolute;top:-21px;left:50%;transform:translateX(-50%);
+  white-space:nowrap;color:#e9cb98;
+  font:600 9px/1 var(--sans);letter-spacing:.29em;
+}
+.gift-card>.kicker{font-size:9px;letter-spacing:.42em;color:#f1d8a8}
+.gift-card .gift-value{
+  margin:22px 0 12px;
+  font-size:clamp(76px,16vw,116px);
+  font-weight:400;letter-spacing:-.075em;
+  background:linear-gradient(115deg,#fff7df 4%,#d9b36f 28%,#fff3ce 48%,#b98b4e 67%,#fff0c7 88%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 5px 18px rgba(232,201,143,.22));
+  text-shadow:none;
+}
+.gift-card .gift-name{
+  display:inline-block;padding:10px 15px;
+  border-top:1px solid rgba(255,226,170,.4);
+  border-bottom:1px solid rgba(255,226,170,.4);
+  color:#f8e7c7;font-size:11px;letter-spacing:.2em;
+}
+.gift-card .gift-copy{max-width:360px;margin-top:19px;color:#e5d4c9;font-size:13px;line-height:1.9}
+.gift-card .cta{
+  min-width:min(270px,100%);
+  border:1px solid rgba(255,239,200,.82);
+  color:#39202a;
+  background:linear-gradient(115deg,#fff0c9 0%,#d6b071 35%,#f8e4b7 58%,#b98b53 100%);
+  box-shadow:0 12px 32px rgba(0,0,0,.3),inset 0 1px rgba(255,255,255,.75),inset 0 -2px rgba(113,72,38,.2);
+  font-weight:700;letter-spacing:.1em;
+}
+.gift-card .cta:hover{box-shadow:0 15px 42px rgba(232,201,143,.2),inset 0 1px rgba(255,255,255,.8);filter:brightness(1.06)}
+.gift-reveal{
+  margin:25px 9px 0;padding:23px 15px 5px;
+  border-top:1px solid rgba(255,226,170,.3);
+  background:linear-gradient(180deg,rgba(255,226,170,.055),transparent);
+}
+.gift-reveal:before{content:"✦  YOUR GIFT  ✦";display:block;margin-bottom:12px;color:#e9cb98;font:600 9px var(--sans);letter-spacing:.32em}
+.gift-reveal p{color:#f4e5d7;font-size:13px}
+.code-note{border-color:rgba(255,226,170,.55);background:rgba(255,226,170,.055);color:#fff0cf}
+@media(max-width:600px){
+ .gift-card{padding:43px 20px 36px;margin-top:24px}
+ .gift-card:before{inset:10px}
+ .gift-card .gift-icon{width:82px;height:82px;font-size:38px}
+ .gift-card .gift-value{font-size:clamp(70px,19vw,92px)}
+ .gift-card .gift-name{font-size:9px;letter-spacing:.13em;padding:9px 10px}
+ .gift-card .cta{width:100%;padding:15px 12px;font-size:10px}
+ .gift-reveal{margin-left:0;margin-right:0}
+}
+@media(prefers-reduced-motion:reduce){.gift-card:after{animation:none}}
+
 </style></head>
 <body><canvas id="cosmos" aria-hidden="true"></canvas><div class="aurora"></div><div class="grain"></div><div class="topline" id="readingTrack" role="button" tabindex="0" aria-label="Перейти к части истории по шкале прогресса"><span id="readingProgress"></span></div><div id="detailToast" role="status" aria-live="polite" aria-atomic="true"></div>
 <nav class="side-nav" aria-label="Навигация"><button type="button" data-jump="0" aria-label="Начало" aria-current="true"></button><button type="button" data-jump="1" aria-label="Поздравление"></button><button type="button" data-jump="2" aria-label="Созвездие"></button><button type="button" data-jump="3" aria-label="Подарок"></button></nav>
