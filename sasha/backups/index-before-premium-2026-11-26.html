@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#190f17">
+<meta name="description" content="Небольшой особенный подарок для Саши от брата.">
+<title>Саша — твой особенный день</title>
+<style>
+:root{--bg:#190f17;--bg2:#26151f;--wine:#612b42;--wine2:#8e435e;--gold:#e5c58b;--gold2:#f4dfb8;--cream:#fff5e8;--muted:#c8b6b2;--line:rgba(229,197,139,.24);--shadow:0 24px 80px rgba(0,0,0,.36)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 15% 5%,rgba(142,67,94,.25),transparent 35%),radial-gradient(ellipse at 90% 35%,rgba(229,197,139,.09),transparent 30%),var(--bg);color:var(--cream);font-family:Georgia,"Times New Roman",serif;min-height:100vh;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:radial-gradient(1px 1px at 20% 30%,#f4dfb8 99%,transparent),radial-gradient(1px 1px at 70% 60%,#f4dfb8 99%,transparent),radial-gradient(1px 1px at 40% 80%,#f4dfb8 99%,transparent);background-size:170px 170px,230px 230px,290px 290px;z-index:-1}
+button{font:inherit;cursor:pointer}.wrap{width:min(1080px,calc(100% - 36px));margin:auto}.hero{min-height:92svh;display:grid;place-items:center;text-align:center;padding:80px 0 60px;position:relative}.eyebrow{letter-spacing:.28em;text-transform:uppercase;font:600 11px/1.5 system-ui,sans-serif;color:var(--gold)}h1,h2,p{margin-top:0}.hero h1{font-size:clamp(54px,12vw,112px);line-height:.92;font-weight:400;margin:22px 0;color:var(--gold2);text-shadow:0 8px 50px rgba(229,197,139,.16)}.hero .sub{font-size:clamp(17px,3vw,22px);color:var(--muted);max-width:560px;margin:0 auto 30px;line-height:1.7}.ornament{color:var(--gold);font-size:28px;letter-spacing:.5em}.pill{border:1px solid var(--line);border-radius:999px;padding:10px 16px;color:var(--gold2);font:12px system-ui,sans-serif;letter-spacing:.08em;display:inline-block}.primary{border:1px solid rgba(229,197,139,.6);background:linear-gradient(135deg,#a45a70,#6e3048);color:#fff8ed;border-radius:999px;padding:15px 24px;box-shadow:0 10px 35px rgba(110,48,72,.35);transition:.25s}.primary:hover{transform:translateY(-3px);box-shadow:0 16px 45px rgba(110,48,72,.5)}.scrollhint{position:absolute;bottom:24px;color:#a99391;font:11px system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase}
+section.content{padding:74px 0}.section-head{text-align:center;margin-bottom:34px}.section-head h2{font-size:clamp(32px,6vw,54px);font-weight:400;color:var(--gold2);margin:12px 0}.section-head p{color:var(--muted);font:15px/1.7 system-ui,sans-serif;max-width:620px;margin:0 auto}.intro-card{max-width:780px;margin:auto;padding:clamp(25px,5vw,48px);border:1px solid var(--line);border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));box-shadow:var(--shadow);text-align:center}.intro-card p{font-size:clamp(17px,2.5vw,21px);line-height:1.85;color:#f0e1d7;margin:0}.wishes{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.wish{min-height:125px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.02));color:var(--gold2);padding:17px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transition:.25s;position:relative;overflow:hidden}.wish:hover,.wish.open{transform:translateY(-4px);border-color:rgba(229,197,139,.65);background:linear-gradient(145deg,rgba(142,67,94,.4),rgba(255,255,255,.04))}.wish .num{font:11px system-ui,sans-serif;color:var(--gold);letter-spacing:.15em}.wish .symbol{font-size:25px}.wish .caption{font:12px/1.35 system-ui,sans-serif;color:#e9d9d0;text-align:center}.wish.open .caption{color:#fff}.wish-note{min-height:82px;max-width:720px;margin:22px auto 0;padding:22px;border:1px solid var(--line);border-radius:18px;background:rgba(0,0,0,.16);text-align:center;color:var(--gold2);font-size:18px;line-height:1.6;display:grid;place-items:center}.wish-note small{display:block;color:var(--muted);font:11px system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.certificate{max-width:780px;margin:auto;padding:clamp(24px,5vw,50px);border-radius:28px;border:1px solid rgba(229,197,139,.48);background:linear-gradient(145deg,#4c2437,#26151f 70%);box-shadow:var(--shadow);text-align:center;position:relative;overflow:hidden}.certificate:before,.certificate:after{content:"✦";position:absolute;color:rgba(229,197,139,.22);font-size:110px}.certificate:before{top:-24px;left:12px}.certificate:after{bottom:-44px;right:10px}.cert-label{font:11px system-ui,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}.cert-value{font-size:clamp(58px,12vw,94px);line-height:1;margin:18px 0;color:var(--gold2)}.cert-title{font-size:clamp(20px,4vw,28px);color:#fff0df}.cert-copy{max-width:480px;margin:15px auto 24px;color:#d8c4bd;font:14px/1.7 system-ui,sans-serif}.cert-placeholder{display:inline-flex;gap:10px;align-items:center;justify-content:center;border:1px dashed rgba(229,197,139,.55);border-radius:14px;padding:14px 18px;color:var(--gold2);font:13px/1.5 system-ui,sans-serif;background:rgba(0,0,0,.12)}.cert-foot{margin-top:16px;color:#bfa8a3;font:11px system-ui,sans-serif}.gift-trigger{margin-top:22px;border:1px solid rgba(229,197,139,.65);background:linear-gradient(135deg,#a45a70,#6e3048);color:#fff8ed;border-radius:999px;padding:14px 24px;font:14px system-ui,sans-serif;box-shadow:0 10px 35px rgba(0,0,0,.2);transition:.25s}.gift-trigger:hover{transform:translateY(-3px)}.cert-details{display:none;margin-top:24px;padding-top:24px;border-top:1px solid rgba(229,197,139,.25)}.cert-details.show{display:block;animation:reveal .65s ease both}@keyframes reveal{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}.final{max-width:780px;margin:auto;text-align:center;padding:34px 20px 100px}.final h2{font-size:clamp(32px,6vw,52px);font-weight:400;color:var(--gold2)}.final p{color:var(--muted);font:15px/1.8 system-ui,sans-serif}.signature{font-size:22px;color:var(--gold2);margin-top:25px}.footer{text-align:center;color:#88747a;font:11px system-ui,sans-serif;padding:20px 0 35px;letter-spacing:.1em}
+.modal{position:fixed;inset:0;z-index:10;background:rgba(9,5,9,.82);display:none;place-items:center;padding:22px;backdrop-filter:blur(9px)}.modal.show{display:grid}.modal-card{width:min(460px,100%);padding:34px 25px;border-radius:24px;border:1px solid var(--line);background:linear-gradient(145deg,#4c2437,#21131d);text-align:center;box-shadow:var(--shadow)}.modal-card .big{font-size:48px}.modal-card h3{font-size:28px;font-weight:400;color:var(--gold2);margin:12px 0}.modal-card p{color:#e8d9d0;font:15px/1.7 system-ui,sans-serif}.close{margin-top:12px;background:transparent;color:var(--gold2);border:1px solid var(--line);border-radius:999px;padding:10px 18px}
+@media(max-width:760px){.wishes{grid-template-columns:repeat(3,1fr)}.wish{min-height:112px}.hero{min-height:88svh}}@media(max-width:390px){.wishes{grid-template-columns:repeat(2,1fr)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+ <div class="wrap">
+  <div class="eyebrow">26 ноября · особенный день</div>
+  <div class="ornament">✧ ✦ ✧</div>
+  <h1>Саша</h1>
+  <p class="sub">Сегодня твой день. И я приготовил для тебя кое-что особенное.</p>
+  <span class="pill">25 лет — новая глава</span>
+  <div style="margin-top:32px"><button class="primary" id="startBtn">Открыть подарок <span aria-hidden="true">↘</span></button></div>
+ </div>
+ <div class="scrollhint">Листай вниз · здесь всё для тебя</div>
+</header>
+<main>
+<section class="content" id="hello">
+ <div class="wrap">
+  <div class="section-head"><div class="eyebrow">Несколько слов от брата</div><h2>С днём рождения, Саша</h2></div>
+  <div class="intro-card"><p>Мы, может быть, не всегда часто говорим о таких вещах, но я хочу, чтобы ты знала: я искренне желаю тебе счастья. Пусть в твоей жизни будет больше спокойных дней, приятных неожиданностей, людей, рядом с которыми легко, и возможностей исполнять то, чего действительно хочется. Оставайся собой, береги себя и не забывай радовать себя не только по праздникам. С днём рождения! ❤️</p></div>
+ </div>
+</section>
+<section class="content" id="wishes">
+ <div class="wrap">
+  <div class="section-head"><div class="eyebrow">25 маленьких пожеланий</div><h2>Открывай по одному</h2><p>Нажми на любую карточку. Каждая хранит отдельное пожелание для тебя.</p></div>
+  <div class="wishes" id="wishesGrid" aria-label="25 пожеланий"></div>
+  <div class="wish-note" id="wishNote" aria-live="polite"><div><small>Твоё пожелание</small>Выбери любую карточку выше ✨</div></div>
+ </div>
+</section>
+<section class="content" id="surprise">
+ <div class="wrap">
+  <div class="section-head"><div class="eyebrow">И ещё кое-что</div><h2>Главный сюрприз</h2><p>Потому что в день рождения должно быть не только много тёплых слов.</p></div>
+  <div class="certificate">
+   <div class="cert-label">Подарок для тебя</div>
+   <div style="font-size:58px;margin:20px 0">🎁</div>
+   <div class="cert-title">Здесь кое-что спрятано</div>
+   <p class="cert-copy">Нажми на коробку, чтобы открыть свой главный сюрприз.</p>
+   <button class="gift-trigger" id="giftTrigger" type="button">Открыть подарок ✨</button>
+   <div class="cert-details" id="certDetails">
+    <div class="cert-value">5 000 ₽</div>
+    <div class="cert-title">Электронный сертификат Ozon</div>
+    <p class="cert-copy">Выбирай то, что давно хотелось, присматривай что-нибудь приятное или просто порадуй себя. Сегодня можно. ❤️</p>
+    <div class="cert-placeholder"><span>✉</span><span>Код сертификата я передам тебе отдельно</span></div>
+    <div class="cert-foot">Номинал подарка: 5 000 рублей</div>
+   </div>
+  </div>
+ </div>
+</section>
+<section class="final">
+ <div class="ornament">✧</div>
+ <h2>Пусть впереди будет много хорошего</h2>
+ <p>Пусть этот год принесёт тебе новые поводы улыбаться, смелость выбирать своё и побольше моментов, которые хочется запомнить.</p>
+ <div class="signature">С днём рождения! ❤️<br><span style="font-size:14px;color:#c8b6b2">Твой брат</span></div>
+</section>
+</main>
+<footer class="footer">СДЕЛАНО С ТЕПЛОМ · ДЛЯ САШИ</footer>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+ <div class="modal-card"><div class="big" id="modalIcon">✨</div><h3 id="modalTitle">Пожелание</h3><p id="modalText"></p><button class="close" id="closeModal">Закрыть</button></div>
+</div>
+<script>
+const wishes=[
+"Пусть здоровье никогда не подводит, а сил хватает на всё задуманное.",
+"Пусть рядом будут люди, с которыми можно быть собой.",
+"Желаю находить время на отдых без чувства вины.",
+"Пусть мечты постепенно превращаются в планы, а планы — в реальность.",
+"Побольше поводов гордиться собой, даже за маленькие победы.",
+"Пусть деньги приходят вовремя, а приятные покупки радуют долго.",
+"Желаю путешествий, новых мест и красивых впечатлений.",
+"Пусть каждый день приносит хотя бы одну хорошую новость.",
+"Побольше лёгкости там, где раньше было слишком сложно.",
+"Желаю уверенности в собственных решениях и выборе.",
+"Пусть дома всегда будет уютно и спокойно.",
+"Желаю встреч, после которых на душе становится теплее.",
+"Пусть удача иногда приходит совершенно неожиданно.",
+"Побольше смеха, спонтанности и приятных мелочей.",
+"Желаю заниматься тем, что действительно нравится.",
+"Пусть любые перемены ведут к чему-то хорошему.",
+"Желаю не сравнивать свой путь с чужим и ценить свой темп.",
+"Пусть в жизни будет больше возможностей, чем причин сомневаться.",
+"Желаю исполнения одного большого желания, о котором пока знаешь только ты.",
+"Пусть рядом всегда найдётся поддержка, когда она нужна.",
+"Желаю красивых рассветов, уютных вечеров и спокойных ночей.",
+"Пусть забота, которую ты отдаёшь другим, возвращается к тебе.",
+"Побольше дней, когда всё складывается именно так, как хотелось.",
+"Желаю смелости начинать новое и не бояться менять планы.",
+"И самое главное — будь счастлива. Не когда-нибудь, а в обычной жизни, каждый день."
+];
+const symbols=["✦","♡","✧","☼","❀","☾","✺","◇","☆","❋"];
+const grid=document.getElementById("wishesGrid");
+wishes.forEach((wish,i)=>{const b=document.createElement("button");b.className="wish";b.type="button";b.setAttribute("aria-label","Открыть пожелание "+(i+1));b.innerHTML='<span class="num">№ '+String(i+1).padStart(2,"0")+'</span><span class="symbol">'+symbols[i%symbols.length]+'</span><span class="caption">Открыть пожелание</span>';b.addEventListener("click",()=>{document.querySelectorAll(".wish.open").forEach(x=>x.classList.remove("open"));b.classList.add("open");document.getElementById("wishNote").innerHTML='<div><small>Пожелание № '+(i+1)+'</small>'+wish+'</div>';});grid.appendChild(b);});
+const modal=document.getElementById("modal");
+function openModal(){modal.classList.add("show");document.getElementById("modalText").textContent="Пусть в этом году у тебя будет больше поводов улыбаться. Ты заслуживаешь всего самого хорошего.";document.getElementById("closeModal").focus();}
+function closeModal(){modal.classList.remove("show");}
+document.getElementById("startBtn").addEventListener("click",()=>document.getElementById("hello").scrollIntoView({behavior:"smooth"}));
+document.getElementById("closeModal").addEventListener("click",closeModal);
+document.getElementById("giftTrigger").addEventListener("click",()=>{const details=document.getElementById("certDetails");details.classList.add("show");document.getElementById("giftTrigger").textContent="Подарок открыт ❤️";document.getElementById("giftTrigger").disabled=true;details.scrollIntoView({behavior:"smooth",block:"center"});});
+modal.addEventListener("click",e=>{if(e.target===modal)closeModal();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+</script>
+</body>
+</html>
