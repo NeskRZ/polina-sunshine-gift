@@ -24,7 +24,7 @@ h1,h2,p{margin-top:0}h1{font-size:clamp(76px,17vw,158px);font-weight:400;line-he
 .explore-target:focus-visible{outline:1px solid rgba(232,201,143,.8);outline-offset:5px;border-radius:5px}
 .explore-target:active{filter:brightness(1.22);transform:scale(.99)}
 .explore-target:hover{filter:brightness(1.12)}
-.corner.explore-target{pointer-events:auto}
+.corner.explore-target,.scroll-cue.explore-target{position:absolute}.corner.explore-target{pointer-events:auto}.gift-card.explore-target .explore-marker,.constellation.explore-target .explore-marker{right:12px;top:12px}
 .topline{cursor:pointer}
 .topline:before{content:"";position:absolute;left:0;right:0;top:-10px;height:23px}
 #detailToast{position:fixed;z-index:20;left:50%;bottom:max(22px,env(safe-area-inset-bottom));width:min(430px,calc(100% - 34px));padding:14px 18px;border:1px solid rgba(232,201,143,.42);border-radius:15px;background:rgba(29,14,23,.96);box-shadow:0 16px 48px rgba(0,0,0,.45),inset 0 1px rgba(255,255,255,.08);color:var(--pale);font:12px/1.65 var(--sans);text-align:center;backdrop-filter:blur(16px);opacity:0;transform:translate(-50%,14px);pointer-events:none;transition:opacity .24s,transform .24s}
