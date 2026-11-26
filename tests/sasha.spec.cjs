@@ -54,10 +54,17 @@ test('Sasha greeting is a short four-scene experience with no wish-card grid', a
   }
   await expect(page.locator('#starHint')).toContainText('5 / 5');
   await expect(page.locator('#starMessage')).toContainText('Пусть всё хорошее');
+  await page.locator('[data-star="0"]').click();
+  await expect(page.locator('#starMessage')).toHaveText(messages[0]);
+  await expect(page.locator('#starHint')).toContainText('5 / 5');
 
   await page.locator('#giftTrigger').click();
   await expect(page.locator('#giftReveal')).toBeVisible();
-  await expect(page.locator('#giftTrigger')).toBeDisabled();
+  await expect(page.locator('#giftTrigger')).toBeEnabled();
+  await page.locator('#giftTrigger').click();
+  await expect(page.locator('#giftReveal')).toBeHidden();
+  await page.locator('#giftTrigger').click();
+  await expect(page.locator('#giftReveal')).toBeVisible();
   await expect(page.locator('.gift-value')).toHaveText('5 000 ₽');
   expect(errors).toEqual([]);
 
