@@ -35,6 +35,8 @@ test('Sasha greeting is a short four-scene experience with no wish-card grid', a
   expect(cssAudit.navSize[1]).toBeGreaterThanOrEqual(44);
   expect(cssAudit.horizontalOverflow).toBeLessThanOrEqual(1);
 
+  await page.locator('#scrollCue').click();
+  await expect(page.locator('#scene1')).toBeInViewport();
   await page.locator('#begin').click();
   await expect(page.locator('#scene1')).toBeInViewport();
 
@@ -95,7 +97,7 @@ test('every story detail has its own unique physical click target', async ({ pag
 
     const point = await target.evaluate(el => {
       const r = el.getBoundingClientRect();
-      const fractions = [0.12, 0.28, 0.5, 0.72, 0.88];
+      const fractions = [0.03, 0.07, 0.12, 0.28, 0.5, 0.72, 0.88, 0.93, 0.97];
       for (const fy of fractions) {
         for (const fx of fractions) {
           const x = r.left + r.width * fx;
