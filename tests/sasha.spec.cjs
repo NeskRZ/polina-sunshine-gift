@@ -79,7 +79,7 @@ test('Sasha greeting is a short four-scene experience with no wish-card grid', a
 
 test('every story detail has its own unique physical click target', async ({ page }) => {
   await page.goto('/sasha/', { waitUntil: 'domcontentloaded' });
-  await page.addStyleTag({ content: 'html { scroll-behavior: auto !important; }' });
+  await page.addStyleTag({ content: 'html { scroll-behavior: auto !important; scroll-snap-type: none !important; } .scene { scroll-snap-align: none !important; }' });
   await page.locator('#seal').click();
   await page.locator('#giftTrigger').click();
 
@@ -90,6 +90,7 @@ test('every story detail has its own unique physical click target', async ({ pag
   for (let i = 0; i < count; i++) {
     const target = page.locator('[data-explore]').nth(i);
     await target.evaluate(el => el.scrollIntoView({ block: 'center', inline: 'center', behavior: 'auto' }));
+    await target.evaluate(el => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
     const expected = await target.getAttribute('data-explore-message');
     expect(expected).toBeTruthy();
     expect(seen.has(expected)).toBe(false);
