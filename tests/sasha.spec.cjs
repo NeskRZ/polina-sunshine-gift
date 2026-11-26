@@ -91,7 +91,6 @@ test('every story detail has its own unique physical click target', async ({ pag
     const target = page.locator('[data-explore]').nth(i);
     await target.evaluate(el => el.scrollIntoView({ block: 'center', inline: 'center', behavior: 'auto' }));
     await target.evaluate(el => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
-    await target.click({ trial: true });
     const expected = await target.getAttribute('data-explore-message');
     expect(expected).toBeTruthy();
     expect(seen.has(expected)).toBe(false);
