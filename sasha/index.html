@@ -1,188 +1,57 @@
 <!doctype html>
-<html lang="ru">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#190f17">
-<meta name="description" content="Небольшой особенный подарок для Саши от брата.">
-<title>Саша — твой особенный день</title>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#160d14"><meta name="description" content="Особенная история-поздравление для Саши."><title>Саша · Твой особенный день</title>
 <style>
-:root{--bg:#190f17;--bg2:#26151f;--wine:#612b42;--wine2:#8e435e;--gold:#e5c58b;--gold2:#f4dfb8;--cream:#fff5e8;--muted:#c8b6b2;--line:rgba(229,197,139,.24);--shadow:0 24px 80px rgba(0,0,0,.36)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 15% 5%,rgba(142,67,94,.25),transparent 35%),radial-gradient(ellipse at 90% 35%,rgba(229,197,139,.09),transparent 30%),var(--bg);color:var(--cream);font-family:Georgia,"Times New Roman",serif;min-height:100vh;overflow-x:hidden}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:radial-gradient(1px 1px at 20% 30%,#f4dfb8 99%,transparent),radial-gradient(1px 1px at 70% 60%,#f4dfb8 99%,transparent),radial-gradient(1px 1px at 40% 80%,#f4dfb8 99%,transparent);background-size:170px 170px,230px 230px,290px 290px;z-index:-1}
-button{font:inherit;cursor:pointer}.wrap{width:min(1080px,calc(100% - 36px));margin:auto}.hero{min-height:92svh;display:grid;place-items:center;text-align:center;padding:80px 0 60px;position:relative}.eyebrow{letter-spacing:.28em;text-transform:uppercase;font:600 11px/1.5 system-ui,sans-serif;color:var(--gold)}h1,h2,p{margin-top:0}.hero h1{font-size:clamp(54px,12vw,112px);line-height:.92;font-weight:400;margin:22px 0;color:var(--gold2);text-shadow:0 8px 50px rgba(229,197,139,.16)}.hero .sub{font-size:clamp(17px,3vw,22px);color:var(--muted);max-width:560px;margin:0 auto 30px;line-height:1.7}.ornament{color:var(--gold);font-size:28px;letter-spacing:.5em}.pill{border:1px solid var(--line);border-radius:999px;padding:10px 16px;color:var(--gold2);font:12px system-ui,sans-serif;letter-spacing:.08em;display:inline-block}.primary{border:1px solid rgba(229,197,139,.6);background:linear-gradient(135deg,#a45a70,#6e3048);color:#fff8ed;border-radius:999px;padding:15px 24px;box-shadow:0 10px 35px rgba(110,48,72,.35);transition:.25s}.primary:hover{transform:translateY(-3px);box-shadow:0 16px 45px rgba(110,48,72,.5)}.scrollhint{position:absolute;bottom:24px;color:#a99391;font:11px system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase}
-section.content{padding:74px 0}.section-head{text-align:center;margin-bottom:34px}.section-head h2{font-size:clamp(32px,6vw,54px);font-weight:400;color:var(--gold2);margin:12px 0}.section-head p{color:var(--muted);font:15px/1.7 system-ui,sans-serif;max-width:620px;margin:0 auto}.intro-card{max-width:780px;margin:auto;padding:clamp(25px,5vw,48px);border:1px solid var(--line);border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));box-shadow:var(--shadow);text-align:center}.intro-card p{font-size:clamp(17px,2.5vw,21px);line-height:1.85;color:#f0e1d7;margin:0}.wishes{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.wish{min-height:125px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.02));color:var(--gold2);padding:17px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transition:.25s;position:relative;overflow:hidden}.wish:hover,.wish.open{transform:translateY(-4px);border-color:rgba(229,197,139,.65);background:linear-gradient(145deg,rgba(142,67,94,.4),rgba(255,255,255,.04))}.wish .num{font:11px system-ui,sans-serif;color:var(--gold);letter-spacing:.15em}.wish .symbol{font-size:25px}.wish .caption{font:12px/1.35 system-ui,sans-serif;color:#e9d9d0;text-align:center}.wish.open .caption{color:#fff}.wish-note{min-height:82px;max-width:720px;margin:22px auto 0;padding:22px;border:1px solid var(--line);border-radius:18px;background:rgba(0,0,0,.16);text-align:center;color:var(--gold2);font-size:18px;line-height:1.6;display:grid;place-items:center}.wish-note small{display:block;color:var(--muted);font:11px system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
-.certificate{max-width:780px;margin:auto;padding:clamp(24px,5vw,50px);border-radius:28px;border:1px solid rgba(229,197,139,.48);background:linear-gradient(145deg,#4c2437,#26151f 70%);box-shadow:var(--shadow);text-align:center;position:relative;overflow:hidden}.certificate:before,.certificate:after{content:"✦";position:absolute;color:rgba(229,197,139,.22);font-size:110px}.certificate:before{top:-24px;left:12px}.certificate:after{bottom:-44px;right:10px}.cert-label{font:11px system-ui,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}.cert-value{font-size:clamp(58px,12vw,94px);line-height:1;margin:18px 0;color:var(--gold2)}.cert-title{font-size:clamp(20px,4vw,28px);color:#fff0df}.cert-copy{max-width:480px;margin:15px auto 24px;color:#d8c4bd;font:14px/1.7 system-ui,sans-serif}.cert-placeholder{display:inline-flex;gap:10px;align-items:center;justify-content:center;border:1px dashed rgba(229,197,139,.55);border-radius:14px;padding:14px 18px;color:var(--gold2);font:13px/1.5 system-ui,sans-serif;background:rgba(0,0,0,.12)}.cert-foot{margin-top:16px;color:#bfa8a3;font:11px system-ui,sans-serif}.gift-trigger{margin-top:22px;border:1px solid rgba(229,197,139,.65);background:linear-gradient(135deg,#a45a70,#6e3048);color:#fff8ed;border-radius:999px;padding:14px 24px;font:14px system-ui,sans-serif;box-shadow:0 10px 35px rgba(0,0,0,.2);transition:.25s}.gift-trigger:hover{transform:translateY(-3px)}.cert-details{display:none;margin-top:24px;padding-top:24px;border-top:1px solid rgba(229,197,139,.25)}.cert-details.show{display:block;animation:reveal .65s ease both}@keyframes reveal{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}.final{max-width:780px;margin:auto;text-align:center;padding:34px 20px 100px}.final h2{font-size:clamp(32px,6vw,52px);font-weight:400;color:var(--gold2)}.final p{color:var(--muted);font:15px/1.8 system-ui,sans-serif}.signature{font-size:22px;color:var(--gold2);margin-top:25px}.footer{text-align:center;color:#88747a;font:11px system-ui,sans-serif;padding:20px 0 35px;letter-spacing:.1em}
-.modal{position:fixed;inset:0;z-index:10;background:rgba(9,5,9,.82);display:none;place-items:center;padding:22px;backdrop-filter:blur(9px)}.modal.show{display:grid}.modal-card{width:min(460px,100%);padding:34px 25px;border-radius:24px;border:1px solid var(--line);background:linear-gradient(145deg,#4c2437,#21131d);text-align:center;box-shadow:var(--shadow)}.modal-card .big{font-size:48px}.modal-card h3{font-size:28px;font-weight:400;color:var(--gold2);margin:12px 0}.modal-card p{color:#e8d9d0;font:15px/1.7 system-ui,sans-serif}.close{margin-top:12px;background:transparent;color:var(--gold2);border:1px solid var(--line);border-radius:999px;padding:10px 18px}
-@media(max-width:760px){.wishes{grid-template-columns:repeat(3,1fr)}.wish{min-height:112px}.hero{min-height:88svh}}@media(max-width:390px){.wishes{grid-template-columns:repeat(2,1fr)}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
-
-/* PREMIUM PASS: richer editorial layout, deliberate detail and mobile polish */
-:root{--gold:#e8c98f;--gold2:#fff0cf;--wine:#71334c;--wine2:#a85c75;--line:rgba(232,201,143,.3);--shadow:0 28px 90px rgba(0,0,0,.48)}
-body{background:radial-gradient(ellipse at 50% -12%,rgba(168,92,117,.34),transparent 42%),radial-gradient(ellipse at 0% 55%,rgba(112,48,73,.22),transparent 32%),radial-gradient(ellipse at 100% 78%,rgba(232,201,143,.09),transparent 28%),#160d14}
-body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.08;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E")}
-.hero{min-height:100svh;padding:100px 0 90px;overflow:hidden}
-.hero:before{content:"";position:absolute;width:min(76vw,680px);aspect-ratio:1;border:1px solid rgba(232,201,143,.13);border-radius:50%;box-shadow:0 0 0 28px rgba(232,201,143,.025),0 0 0 58px rgba(232,201,143,.018),inset 0 0 100px rgba(232,201,143,.035);pointer-events:none}
-.hero:after{content:"";position:absolute;inset:26px;border:1px solid rgba(232,201,143,.09);border-radius:26px;pointer-events:none}
-.hero .wrap{position:relative;z-index:1}
-.hero h1{font-size:clamp(76px,15vw,150px);letter-spacing:-.055em;margin:30px 0 26px;background:linear-gradient(115deg,#fff4dc 5%,#d9ad72 48%,#fff0d0 80%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 12px 35px rgba(229,197,139,.12))}
-.eyebrow{font-size:10px;letter-spacing:.34em}
-.hero .sub{max-width:590px;letter-spacing:.015em}
-.pill{padding:12px 20px;background:rgba(232,201,143,.055);backdrop-filter:blur(8px)}
-.primary,.gift-trigger{background:linear-gradient(120deg,#b87583,#7d3a55 55%,#9b5b69);border-color:rgba(255,231,190,.72);box-shadow:0 12px 34px rgba(111,42,68,.38),inset 0 1px rgba(255,255,255,.22);letter-spacing:.035em}
-.primary{padding:16px 28px}
-.primary:hover,.gift-trigger:hover{filter:brightness(1.12)}
-.scrollhint{letter-spacing:.3em}
-.content{position:relative}
-.section-head{margin-bottom:42px}
-.section-head h2{letter-spacing:-.025em}
-.intro-card,.certificate{position:relative;isolation:isolate}
-.intro-card:before,.certificate:before{pointer-events:none}
-.intro-card{background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.018) 55%,rgba(232,201,143,.045));border-color:rgba(232,201,143,.38);box-shadow:0 30px 90px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.08)}
-.intro-card:after{content:"✧";display:block;color:var(--gold);font-size:24px;margin-top:22px;opacity:.85}
-.craft-panel{max-width:900px;margin:0 auto 58px;padding:clamp(24px,4vw,38px);border:1px solid rgba(232,201,143,.24);border-radius:24px;background:linear-gradient(120deg,rgba(94,38,59,.45),rgba(255,255,255,.025));display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;box-shadow:0 22px 70px rgba(0,0,0,.2)}
-.craft-kicker{font:10px system-ui,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
-.craft-panel h3{font-size:clamp(25px,4vw,36px);font-weight:400;line-height:1.12;color:var(--gold2);margin:12px 0}
-.craft-panel p{font:14px/1.8 system-ui,sans-serif;color:#d4c0ba;margin:0}
-.craft-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.craft-stat{padding:16px 14px;border:1px solid rgba(232,201,143,.2);border-radius:16px;background:rgba(10,5,9,.18)}
-.craft-stat strong{display:block;font:26px Georgia,serif;color:var(--gold2);margin-bottom:5px}
-.craft-stat span{font:10px/1.45 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#c6aeaa}
-.wishes{gap:13px}
-.wish{min-height:142px;border-radius:19px;background:linear-gradient(150deg,rgba(255,255,255,.075),rgba(255,255,255,.015));box-shadow:inset 0 1px rgba(255,255,255,.045);padding:18px 10px}
-.wish:before{content:"";position:absolute;inset:5px;border:1px solid rgba(232,201,143,.075);border-radius:14px;pointer-events:none}
-.wish .symbol{font-size:28px;text-shadow:0 0 22px rgba(232,201,143,.25)}
-.wish.open{background:linear-gradient(145deg,rgba(142,67,94,.55),rgba(39,19,31,.7));box-shadow:0 14px 35px rgba(0,0,0,.2)}
-.wish-note{border-color:rgba(232,201,143,.34);background:linear-gradient(120deg,rgba(104,45,67,.34),rgba(0,0,0,.16));box-shadow:0 18px 48px rgba(0,0,0,.18)}
-.wish-progress{font:11px system-ui,sans-serif;letter-spacing:.12em;color:var(--gold);margin:0 auto 20px;text-align:center;text-transform:uppercase}
-.wish-progress .track{height:3px;max-width:300px;background:rgba(232,201,143,.14);margin:10px auto 0;border-radius:5px;overflow:hidden}
-.wish-progress .fill{height:100%;width:0;background:linear-gradient(90deg,#a85c75,#f4dfb8);transition:width .35s ease}
-.certificate{background:radial-gradient(ellipse at 50% 0%,rgba(207,151,123,.22),transparent 45%),linear-gradient(145deg,#54273d,#21131d 72%);box-shadow:0 32px 100px rgba(0,0,0,.48),inset 0 1px rgba(255,255,255,.12)}
-.certificate:after{font-size:150px;opacity:.75}
-.cert-label{letter-spacing:.32em}
-.cert-value{font-weight:400;letter-spacing:-.045em;text-shadow:0 8px 35px rgba(232,201,143,.18)}
-.cert-placeholder{border-color:rgba(232,201,143,.45);background:rgba(10,5,9,.24)}
-.final{position:relative}
-.final:before{content:"";display:block;width:1px;height:70px;background:linear-gradient(transparent,var(--gold),transparent);margin:0 auto 36px}
-.signature{line-height:1.8}
-.footer{letter-spacing:.22em}
-@media(max-width:760px){.hero{min-height:92svh;padding:86px 0 78px}.hero:after{inset:12px;border-radius:19px}.craft-panel{grid-template-columns:1fr;gap:20px}.wish{min-height:125px}.content{padding:64px 0!important}}
-@media(max-width:390px){.wishes{gap:9px}.wish{min-height:118px;padding:14px 7px}.craft-stat{padding:13px 10px}.hero h1{font-size:76px}}
-@media(prefers-reduced-motion:no-preference){.hero .eyebrow,.hero .ornament,.hero h1,.hero .sub,.hero .pill,.hero .primary{animation:riseIn .85s both}.hero .ornament{animation-delay:.08s}.hero h1{animation-delay:.16s}.hero .sub{animation-delay:.25s}.hero .pill{animation-delay:.34s}.hero .primary{animation-delay:.42s}@keyframes riseIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}}
-
-</style>
-</head>
-<body>
-<header class="hero">
- <div class="wrap">
-  <div class="eyebrow">26 ноября · особенный день</div>
-  <div class="ornament">✧ ✦ ✧</div>
-  <h1>Саша</h1>
-  <p class="sub">Сегодня твой день. И я приготовил для тебя кое-что особенное.</p>
-  <span class="pill">25 лет — новая глава</span>
-  <div style="margin-top:32px"><button class="primary" id="startBtn">Открыть подарок <span aria-hidden="true">↘</span></button></div>
- </div>
- <div class="scrollhint">Листай вниз · здесь всё для тебя</div>
-</header>
+:root{--bg:#160d14;--wine:#71334c;--rose:#a45a70;--gold:#e8c98f;--pale:#fff0d0;--text:#f8eee7;--muted:#c9b8b6;--line:rgba(232,201,143,.25);--serif:Georgia,"Times New Roman",serif;--sans:system-ui,-apple-system,"Segoe UI",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-snap-type:y proximity}body{margin:0;background:var(--bg);color:var(--text);font-family:var(--serif);overflow-x:hidden}button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible{outline:2px solid var(--gold);outline-offset:5px}
+#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:-3;pointer-events:none}.aurora{position:fixed;inset:-20%;z-index:-2;pointer-events:none;background:radial-gradient(ellipse at 15% 15%,rgba(146,65,92,.28),transparent 36%),radial-gradient(ellipse at 85% 72%,rgba(201,153,103,.13),transparent 32%),radial-gradient(ellipse at 50% 50%,rgba(74,31,51,.2),transparent 58%);animation:aurora 18s ease-in-out infinite alternate}.grain{position:fixed;inset:0;z-index:5;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E")}
+@keyframes aurora{to{transform:translate3d(3%,2%,0) scale(1.08)}}@keyframes float{50%{transform:translateY(-9px)}}@keyframes pulse{50%{opacity:.4;transform:scale(.92)}}@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.topline{position:fixed;z-index:8;top:0;left:0;right:0;height:3px;background:rgba(255,255,255,.06)}.topline span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--rose),var(--gold));box-shadow:0 0 15px rgba(232,201,143,.65);transition:width .2s}.side-nav{position:fixed;z-index:8;right:17px;top:50%;transform:translateY(-50%);display:grid;gap:12px}.side-nav button{width:9px;height:9px;border-radius:50%;border:1px solid rgba(232,201,143,.6);background:transparent;padding:0;transition:.3s}.side-nav button[aria-current=true]{background:var(--gold);box-shadow:0 0 14px var(--gold);transform:scale(1.35)}
+.scene{min-height:100svh;position:relative;display:grid;place-items:center;padding:80px 24px;scroll-snap-align:start;isolation:isolate}.inner{width:min(850px,100%);margin:auto;text-align:center}.kicker{font:600 10px/1.6 var(--sans);letter-spacing:.34em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;justify-content:center;gap:12px}.kicker:before,.kicker:after{content:"";width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+h1,h2,p{margin-top:0}h1{font-size:clamp(76px,17vw,158px);font-weight:400;line-height:.84;letter-spacing:-.065em;margin:30px 0 22px;background:linear-gradient(120deg,#fff7e5 12%,#dcb77c 48%,#fff0d0 76%);background-clip:text;-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 10px 34px rgba(232,201,143,.16)}h2{font-size:clamp(36px,7vw,66px);font-weight:400;letter-spacing:-.035em;color:var(--pale);line-height:1.02;margin:18px 0}.lead{max-width:570px;margin:0 auto;color:#d8c8c3;font:15px/1.9 var(--sans)}.date-chip{display:inline-flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:99px;padding:11px 17px;color:#f0ddc4;font:11px var(--sans);letter-spacing:.14em;background:rgba(255,255,255,.035);backdrop-filter:blur(12px)}.date-chip b{color:var(--gold);font-weight:500}
+.cta{margin-top:30px;border:1px solid rgba(255,230,190,.65);border-radius:99px;padding:15px 25px;background:linear-gradient(120deg,#b87583,#71334c 62%,#9b5b69);box-shadow:0 12px 34px rgba(111,42,68,.35),inset 0 1px rgba(255,255,255,.2);font:600 12px var(--sans);letter-spacing:.08em;transition:transform .3s,box-shadow .3s}.cta:active{transform:scale(.97)}.cta:hover{box-shadow:0 17px 46px rgba(111,42,68,.48);transform:translateY(-2px)}.cta:disabled{opacity:.8;cursor:default}
+.scroll-cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);display:grid;justify-items:center;gap:9px;color:#a99591;font:9px var(--sans);letter-spacing:.25em;text-transform:uppercase}.scroll-cue i{width:1px;height:30px;background:linear-gradient(var(--gold),transparent);animation:pulse 1.8s infinite}
+.hero-mark{width:155px;height:155px;margin:0 auto 14px;position:relative;display:grid;place-items:center;animation:float 6s ease-in-out infinite}.hero-mark:before,.hero-mark:after{content:"";position:absolute;inset:7px;border:1px solid rgba(232,201,143,.24);border-radius:50%;transform:rotate(32deg) scaleX(.56)}.hero-mark:after{transform:rotate(-32deg) scaleX(.56)}.hero-mark svg{width:64px;height:64px;filter:drop-shadow(0 0 20px rgba(232,201,143,.5))}
+.corner{position:absolute;width:40px;height:40px;border-color:rgba(232,201,143,.35);border-style:solid;pointer-events:none}.tl{top:26px;left:26px;border-width:1px 0 0 1px}.tr{top:26px;right:26px;border-width:1px 1px 0 0}.bl{bottom:26px;left:26px;border-width:0 0 1px 1px}.br{bottom:26px;right:26px;border-width:0 1px 1px 0}
+.letter{max-width:690px;margin:30px auto 0;padding:clamp(27px,6vw,55px);position:relative;border:1px solid rgba(232,201,143,.27);border-radius:5px 26px 5px 26px;background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.018) 55%,rgba(232,201,143,.055));box-shadow:0 30px 90px rgba(0,0,0,.3),inset 0 1px rgba(255,255,255,.08);backdrop-filter:blur(12px);text-align:left}.letter:before{content:"";position:absolute;inset:8px;border:1px solid rgba(232,201,143,.1);border-radius:2px 19px 2px 19px;pointer-events:none}.letter p{position:relative;color:#f0e1d7;font-size:clamp(16px,2.3vw,19px);line-height:1.95;margin:0}.letter .signoff{margin-top:22px;color:var(--gold);font-size:18px}.seal{margin:27px auto 0;width:56px;height:56px;border:1px solid rgba(232,201,143,.55);border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,rgba(164,90,112,.42),rgba(60,26,42,.8));box-shadow:0 0 35px rgba(164,90,112,.2);transition:.35s}.seal:hover{transform:rotate(18deg) scale(1.08)}.seal span{font-size:23px;color:var(--gold)}.seal-note{min-height:28px;margin:13px auto 0;color:#d9c2b7;font:12px/1.7 var(--sans);opacity:0;transform:translateY(5px);transition:.35s}.seal-note.show{opacity:1;transform:none}
+.constellation{width:min(520px,100%);height:290px;margin:18px auto 0;position:relative;border:1px solid rgba(232,201,143,.13);border-radius:50% 50% 44% 44% / 42% 42% 58% 58%;background:radial-gradient(ellipse at 50% 50%,rgba(164,90,112,.13),transparent 65%);overflow:hidden}.constellation svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.constellation path{stroke:rgba(232,201,143,.23);stroke-width:1;fill:none;stroke-dasharray:4 7}.star{position:absolute;width:46px;height:46px;border:1px solid rgba(232,201,143,.25);border-radius:50%;background:rgba(27,15,23,.55);backdrop-filter:blur(6px);display:grid;place-items:center;color:#d7b77f;font-size:19px;transition:.35s;box-shadow:0 0 22px rgba(232,201,143,.06)}.star:after{content:"";position:absolute;inset:-5px;border:1px solid rgba(232,201,143,.12);border-radius:50%;animation:pulse 3s infinite}.star.active{background:rgba(164,90,112,.48);color:#fff1d2;box-shadow:0 0 30px rgba(232,201,143,.35);transform:scale(1.16)}.star-message{min-height:48px;margin:17px auto 0;color:#e6d6ce;font:13px/1.7 var(--sans)}.star-hint{color:#a99591;font:10px var(--sans);letter-spacing:.12em;text-transform:uppercase}
+.gift-card{max-width:590px;margin:30px auto 0;padding:clamp(28px,6vw,52px) 24px;border:1px solid rgba(232,201,143,.48);border-radius:4px 28px 4px 28px;background:radial-gradient(ellipse at 50% 0,rgba(207,151,123,.2),transparent 50%),linear-gradient(145deg,rgba(100,43,67,.86),rgba(30,16,25,.96) 72%);box-shadow:0 32px 100px rgba(0,0,0,.48),inset 0 1px rgba(255,255,255,.1);position:relative;overflow:hidden}.gift-card:before{content:"";position:absolute;inset:9px;border:1px solid rgba(232,201,143,.17);pointer-events:none}.gift-icon{font-size:54px;display:block;margin-bottom:15px;filter:drop-shadow(0 8px 24px rgba(232,201,143,.25));animation:float 4s ease-in-out infinite}.gift-value{font-size:clamp(68px,14vw,102px);line-height:1;color:var(--pale);letter-spacing:-.055em;margin:18px 0 10px;text-shadow:0 8px 35px rgba(232,201,143,.17)}.gift-name{font:14px var(--sans);letter-spacing:.06em;color:#fff0df}.gift-copy{max-width:390px;margin:13px auto 0;color:#d8c4bd;font:13px/1.8 var(--sans)}.gift-reveal{display:none;margin-top:22px;padding-top:21px;border-top:1px solid rgba(232,201,143,.22);animation:rise .55s both}.gift-reveal.show{display:block}.gift-reveal p{font:12px/1.8 var(--sans);color:#e3d1c9}.code-note{display:inline-flex;align-items:center;gap:9px;padding:12px 16px;border:1px dashed rgba(232,201,143,.42);border-radius:12px;color:var(--pale);font:11px var(--sans)}.final-note{max-width:600px;margin:24px auto 0;color:#d8c8c3;font:14px/1.9 var(--sans)}.signature{margin-top:24px;color:var(--pale);font-size:21px}.end-mark{display:inline-block;margin-top:27px;color:var(--gold);font-size:23px;letter-spacing:.5em}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .8s,transform .8s}.reveal.visible{opacity:1;transform:none}.delay{transition-delay:.12s}.tap-flash{position:fixed;z-index:9;pointer-events:none;color:var(--pale);font-size:15px;animation:flash .8s ease-out forwards}@keyframes flash{from{opacity:1;transform:translate(-50%,-50%) scale(.5)}to{opacity:0;transform:translate(-50%,-90px) scale(1.5)}}
+@media(max-width:600px){.scene{padding:72px 22px;min-height:100svh}.side-nav{right:10px;gap:10px}.side-nav button{width:8px;height:8px}.hero-mark{width:130px;height:130px}.letter{margin-top:23px}.constellation{height:265px}.corner{width:25px;height:25px}.tl,.tr{top:14px}.bl,.br{bottom:14px}.tl,.bl{left:14px}.tr,.br{right:14px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style></head>
+<body><canvas id="cosmos" aria-hidden="true"></canvas><div class="aurora"></div><div class="grain"></div><div class="topline"><span id="readingProgress"></span></div>
+<nav class="side-nav" aria-label="Навигация"><button type="button" data-jump="0" aria-label="Начало" aria-current="true"></button><button type="button" data-jump="1" aria-label="Поздравление"></button><button type="button" data-jump="2" aria-label="Созвездие"></button><button type="button" data-jump="3" aria-label="Подарок"></button></nav>
 <main>
-<section class="content" id="hello">
- <div class="wrap">
-  <div class="section-head"><div class="eyebrow">Несколько слов от брата</div><h2>С днём рождения, Саша</h2></div>
-  <div class="intro-card"><p>Мы, может быть, не всегда часто говорим о таких вещах, но я хочу, чтобы ты знала: я искренне желаю тебе счастья. Пусть в твоей жизни будет больше спокойных дней, приятных неожиданностей, людей, рядом с которыми легко, и возможностей исполнять то, чего действительно хочется. Оставайся собой, береги себя и не забывай радовать себя не только по праздникам. С днём рождения! ❤️</p></div>
- </div>
-</section>
-<section class="content" aria-label="О подарке">
- <div class="wrap">
-  <div class="craft-panel">
-   <div><div class="craft-kicker">Не готовый шаблон · создано специально для тебя</div><h3>В этом подарке каждая деталь на своём месте</h3><p>Я собрал для тебя отдельную маленькую историю: продумал оформление, сделал 25 отдельных пожеланий, добавил интерактивы и спрятал внутри ещё один сюрприз. Просто листай и открывай всё в своём темпе.</p></div>
-   <div class="craft-stats">
-    <div class="craft-stat"><strong>25</strong><span>личных пожеланий</span></div>
-    <div class="craft-stat"><strong>1 / 1</strong><span>подарок, сделанный для тебя</span></div>
-    <div class="craft-stat"><strong>∞</strong><span>тёплых пожеланий</span></div>
-    <div class="craft-stat"><strong>5 000 ₽</strong><span>главный сюрприз внутри</span></div>
-   </div>
-  </div>
- </div>
-</section>
-<section class="content" id="wishes">
- <div class="wrap">
-  <div class="section-head"><div class="eyebrow">25 маленьких пожеланий</div><h2>Открывай по одному</h2><p>Нажми на любую карточку. Каждая хранит отдельное пожелание для тебя.</p></div>
-  <div class="wish-progress" aria-live="polite"><span id="wishCount">Открыто 0 из 25</span><div class="track"><div class="fill" id="wishFill"></div></div></div>
-  <div class="wishes" id="wishesGrid" aria-label="25 пожеланий"></div>
-  <div class="wish-note" id="wishNote" aria-live="polite"><div><small>Твоё пожелание</small>Выбери любую карточку выше ✨</div></div>
- </div>
-</section>
-<section class="content" id="surprise">
- <div class="wrap">
-  <div class="section-head"><div class="eyebrow">И ещё кое-что</div><h2>Главный сюрприз</h2><p>Потому что в день рождения должно быть не только много тёплых слов.</p></div>
-  <div class="certificate">
-   <div class="cert-label">Подарок для тебя</div>
-   <div style="font-size:58px;margin:20px 0">🎁</div>
-   <div class="cert-title">Здесь кое-что спрятано</div>
-   <p class="cert-copy">Нажми на коробку, чтобы открыть свой главный сюрприз.</p>
-   <button class="gift-trigger" id="giftTrigger" type="button">Открыть подарок ✨</button>
-   <div class="cert-details" id="certDetails">
-    <div class="cert-value">5 000 ₽</div>
-    <div class="cert-title">Электронный сертификат Ozon</div>
-    <p class="cert-copy">Выбирай то, что давно хотелось, присматривай что-нибудь приятное или просто порадуй себя. Сегодня можно. ❤️</p>
-    <div class="cert-placeholder"><span>✉</span><span>Код сертификата я передам тебе отдельно</span></div>
-    <div class="cert-foot">Номинал подарка: 5 000 рублей</div>
-   </div>
-  </div>
- </div>
-</section>
-<section class="final">
- <div class="ornament">✧</div>
- <h2>Пусть впереди будет много хорошего</h2>
- <p>Пусть этот год принесёт тебе новые поводы улыбаться, смелость выбирать своё и побольше моментов, которые хочется запомнить.</p>
- <div class="signature">С днём рождения! ❤️<br><span style="font-size:14px;color:#c8b6b2">Твой брат</span></div>
-</section>
+<section class="scene" id="scene0"><div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div><div class="inner">
+<div class="hero-mark reveal"><svg viewBox="0 0 80 80" fill="none" aria-hidden="true"><path d="M40 7 47 31 71 40 47 47 40 73 32 47 8 40 32 31Z" stroke="#e8c98f" stroke-width="1.3"/><circle cx="40" cy="40" r="8" stroke="#fff0d0"/><path d="M40 0v13M40 67v13M0 40h13M67 40h13" stroke="#e8c98f" opacity=".55"/></svg></div>
+<div class="kicker reveal delay">26 ноября · день, который твой</div><h1 class="reveal delay">Саша</h1><p class="lead reveal delay">Сегодня тебе 25. И мне захотелось сделать для тебя не просто открытку, а маленькую историю, которую можно открыть в любой момент.</p>
+<div style="margin-top:25px" class="reveal delay"><span class="date-chip"><b>25</b> лет <span>·</span> новая глава <span>✦</span></span></div><button class="cta reveal delay" id="begin" type="button">НАЧАТЬ ЭТУ ИСТОРИЮ　↘</button></div><div class="scroll-cue"><span>Листай дальше</span><i></i></div></section>
+<section class="scene" id="scene1"><div class="inner"><div class="kicker reveal">Несколько слов от брата</div><h2 class="reveal delay">Для тебя.<br>И от всего сердца.</h2>
+<div class="letter reveal delay"><p>Мы, может быть, не всегда часто говорим о таких вещах, но я хочу, чтобы ты знала: я искренне желаю тебе счастья. Пусть в твоей жизни будет больше спокойных дней, приятных неожиданностей, людей, рядом с которыми легко, и возможностей исполнять то, чего действительно хочется. Оставайся собой, береги себя и не забывай радовать себя не только по праздникам. С днём рождения! ❤️</p><p class="signoff">Твой брат</p></div>
+<button class="seal reveal delay" id="seal" type="button" aria-label="Открыть маленькую тайну"><span>✧</span></button><p class="seal-note" id="sealNote" aria-live="polite">И ещё одно: пусть у тебя всегда будет время на себя.</p></div></section>
+<section class="scene" id="scene2"><div class="inner"><div class="kicker reveal">Небольшая деталь этой истории</div><h2 class="reveal delay">Пусть звёзды<br>будут на твоей стороне</h2><p class="lead reveal delay">Я оставил здесь пять маленьких огней. Коснись каждого, чтобы зажечь своё созвездие.</p>
+<div class="constellation reveal delay" id="constellation"><svg viewBox="0 0 520 300" preserveAspectRatio="none" aria-hidden="true"><path d="M105 105 250 55 410 112 170 250 360 245 105 105"/></svg>
+<button class="star" type="button" data-star="0" style="left:18%;top:24%" aria-label="Зажечь первую звезду">✧</button><button class="star" type="button" data-star="1" style="left:44%;top:12%" aria-label="Зажечь вторую звезду">✦</button><button class="star" type="button" data-star="2" style="right:17%;top:29%" aria-label="Зажечь третью звезду">✧</button><button class="star" type="button" data-star="3" style="left:31%;bottom:17%" aria-label="Зажечь четвёртую звезду">✦</button><button class="star" type="button" data-star="4" style="right:28%;bottom:14%" aria-label="Зажечь пятую звезду">✧</button></div>
+<p class="star-message" id="starMessage" aria-live="polite">Каждая звезда хранит одно пожелание.</p><div class="star-hint" id="starHint">0 / 5 · СОЗВЕЗДИЕ НЕ ЗАЖЖЕНО</div></div></section>
+<section class="scene" id="scene3"><div class="inner"><div class="kicker reveal">И последнее…</div><h2 class="reveal delay">Твой маленький<br>большой сюрприз</h2>
+<div class="gift-card reveal delay"><span class="gift-icon" aria-hidden="true">🎁</span><div class="kicker">Только для тебя</div><div class="gift-value">5 000 ₽</div><div class="gift-name">ЭЛЕКТРОННЫЙ СЕРТИФИКАТ OZON</div><p class="gift-copy">Чтобы выбрать то, что давно хотелось, найти что-нибудь приятное или просто порадовать себя. Сегодня можно. ❤️</p>
+<button class="cta" id="giftTrigger" type="button">ОТКРЫТЬ ПОДАРОК　✦</button><div class="gift-reveal" id="giftReveal" aria-live="polite"><p>Этот сертификат — твой. Код я передам тебе отдельно, чтобы он остался только у тебя.</p><div class="code-note">✉　Код сертификата — лично тебе</div></div></div>
+<p class="final-note reveal delay">Пусть впереди будет больше хороших новостей, лёгких дней, новых мест и людей, рядом с которыми спокойно. И пусть поводов улыбаться будет гораздо больше, чем сегодня.</p><div class="signature reveal delay">С днём рождения, Саша ❤️</div><div class="end-mark reveal delay">✧　✦　✧</div></div></section>
 </main>
-<footer class="footer">СДЕЛАНО С ТЕПЛОМ · ДЛЯ САШИ</footer>
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
- <div class="modal-card"><div class="big" id="modalIcon">✨</div><h3 id="modalTitle">Пожелание</h3><p id="modalText"></p><button class="close" id="closeModal">Закрыть</button></div>
-</div>
 <script>
-const wishes=[
-"Пусть здоровье никогда не подводит, а сил хватает на всё задуманное.",
-"Пусть рядом будут люди, с которыми можно быть собой.",
-"Желаю находить время на отдых без чувства вины.",
-"Пусть мечты постепенно превращаются в планы, а планы — в реальность.",
-"Побольше поводов гордиться собой, даже за маленькие победы.",
-"Пусть деньги приходят вовремя, а приятные покупки радуют долго.",
-"Желаю путешествий, новых мест и красивых впечатлений.",
-"Пусть каждый день приносит хотя бы одну хорошую новость.",
-"Побольше лёгкости там, где раньше было слишком сложно.",
-"Желаю уверенности в собственных решениях и выборе.",
-"Пусть дома всегда будет уютно и спокойно.",
-"Желаю встреч, после которых на душе становится теплее.",
-"Пусть удача иногда приходит совершенно неожиданно.",
-"Побольше смеха, спонтанности и приятных мелочей.",
-"Желаю заниматься тем, что действительно нравится.",
-"Пусть любые перемены ведут к чему-то хорошему.",
-"Желаю не сравнивать свой путь с чужим и ценить свой темп.",
-"Пусть в жизни будет больше возможностей, чем причин сомневаться.",
-"Желаю исполнения одного большого желания, о котором пока знаешь только ты.",
-"Пусть рядом всегда найдётся поддержка, когда она нужна.",
-"Желаю красивых рассветов, уютных вечеров и спокойных ночей.",
-"Пусть забота, которую ты отдаёшь другим, возвращается к тебе.",
-"Побольше дней, когда всё складывается именно так, как хотелось.",
-"Желаю смелости начинать новое и не бояться менять планы.",
-"И самое главное — будь счастлива. Не когда-нибудь, а в обычной жизни, каждый день."
-];
-const symbols=["✦","♡","✧","☼","❀","☾","✺","◇","☆","❋"];
-const grid=document.getElementById("wishesGrid");
-const openedWishes=new Set();
-function updateWishProgress(){document.getElementById("wishCount").textContent="Открыто "+openedWishes.size+" из 25";document.getElementById("wishFill").style.width=(openedWishes.size/25*100)+"%";}
-wishes.forEach((wish,i)=>{const b=document.createElement("button");b.className="wish";b.type="button";b.setAttribute("aria-label","Открыть пожелание "+(i+1));b.innerHTML='<span class="num">№ '+String(i+1).padStart(2,"0")+'</span><span class="symbol">'+symbols[i%symbols.length]+'</span><span class="caption">Открыть пожелание</span>';b.addEventListener("click",()=>{document.querySelectorAll(".wish.open").forEach(x=>x.classList.remove("open"));b.classList.add("open");openedWishes.add(i);updateWishProgress();document.getElementById("wishNote").innerHTML='<div><small>Пожелание № '+(i+1)+'</small>'+wish+'</div>';});grid.appendChild(b);});
-const modal=document.getElementById("modal");
-function openModal(){modal.classList.add("show");document.getElementById("modalText").textContent="Пусть в этом году у тебя будет больше поводов улыбаться. Ты заслуживаешь всего самого хорошего.";document.getElementById("closeModal").focus();}
-function closeModal(){modal.classList.remove("show");}
-document.getElementById("startBtn").addEventListener("click",()=>document.getElementById("hello").scrollIntoView({behavior:"smooth"}));
-document.getElementById("closeModal").addEventListener("click",closeModal);
-document.getElementById("giftTrigger").addEventListener("click",()=>{const details=document.getElementById("certDetails");details.classList.add("show");document.getElementById("giftTrigger").textContent="Подарок открыт ❤️";document.getElementById("giftTrigger").disabled=true;details.scrollIntoView({behavior:"smooth",block:"center"});});
-modal.addEventListener("click",e=>{if(e.target===modal)closeModal();});
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
-</script>
-</body>
-</html>
+(()=>{"use strict";const $=(q,r=document)=>r.querySelector(q),$$=(q,r=document)=>Array.from(r.querySelectorAll(q)),reduced=matchMedia("(prefers-reduced-motion: reduce)").matches,scenes=$$(".scene"),dots=$$(".side-nav button");
+function go(i){scenes[Math.max(0,Math.min(scenes.length-1,i))].scrollIntoView({behavior:reduced?"auto":"smooth",block:"start"});}$("#begin").addEventListener("click",()=>go(1));dots.forEach(b=>b.addEventListener("click",()=>go(+b.dataset.jump)));
+const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");const i=scenes.indexOf(e.target.closest(".scene"));if(i>=0)dots.forEach((d,n)=>d.setAttribute("aria-current",String(i===n)));}}),{threshold:.28});$$(".reveal").forEach(el=>observer.observe(el));
+function progress(){const max=document.documentElement.scrollHeight-innerHeight;$("#readingProgress").style.width=(max>0?scrollY/max*100:0)+"%";}addEventListener("scroll",progress,{passive:true});progress();
+let sealOpen=false;$("#seal").addEventListener("click",()=>{sealOpen=!sealOpen;$("#sealNote").classList.toggle("show",sealOpen);$("#seal span").textContent=sealOpen?"♥":"✧";});
+const wishes=["Пусть каждый новый день приносит хотя бы одну хорошую новость.","Пусть рядом будут люди, с которыми легко и спокойно.","Пусть мечты находят дорогу в реальность.","Пусть в жизни будет больше свободы выбирать своё.","Пусть счастье чаще прячется в самых обычных днях."];let lit=new Set();
+$$("[data-star]").forEach(b=>b.addEventListener("click",()=>{const n=+b.dataset.star;if(lit.has(n))return;lit.add(n);b.classList.add("active");b.textContent="✦";$("#starMessage").textContent=wishes[n];$("#starHint").textContent=lit.size+" / 5 · "+(lit.size===5?"СОЗВЕЗДИЕ ЗАЖЖЕНО":"ЗВЁЗДЫ ПРОСЫПАЮТСЯ");if(lit.size===5){$("#starMessage").textContent="Пусть всё хорошее обязательно найдёт к тебе дорогу. ✨";const r=$("#constellation").getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,22);}}));
+let giftOpen=false;$("#giftTrigger").addEventListener("click",()=>{if(giftOpen)return;giftOpen=true;$("#giftReveal").classList.add("show");$("#giftTrigger").textContent="ПОДАРОК ОТКРЫТ ♥";$("#giftTrigger").disabled=true;burst(innerWidth/2,innerHeight*.62,34);});
+function burst(x,y,count){if(reduced)return;for(let i=0;i<count;i++){const s=document.createElement("span");s.className="tap-flash";s.textContent=["✦","✧","♡","·"][i%4];s.style.left=x+(Math.random()-.5)*150+"px";s.style.top=y+(Math.random()-.5)*70+"px";s.style.animationDelay=Math.random()*.2+"s";document.body.append(s);setTimeout(()=>s.remove(),950);}}
+document.addEventListener("pointerdown",e=>{if(e.target.closest("button"))burst(e.clientX,e.clientY,5);},{passive:true});
+const canvas=$("#cosmos"),ctx=canvas.getContext("2d");let w=0,h=0,dpr=1,stars=[],lastMeteor=0,meteor=null;
+function resize(){dpr=Math.min(devicePixelRatio||1,1.6);w=innerWidth;h=innerHeight;canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);canvas.style.width=w+"px";canvas.style.height=h+"px";ctx.setTransform(dpr,0,0,dpr,0,0);stars=Array.from({length:Math.min(105,Math.floor(w*h/7200))},()=>({x:Math.random()*w,y:Math.random()*h,r:.35+Math.random()*1.25,a:.18+Math.random()*.62,p:Math.random()*6.28,s:.25+Math.random()*.7}));}
+function frame(t){ctx.clearRect(0,0,w,h);for(const s of stars){ctx.globalAlpha=reduced?s.a:s.a*(.68+.32*Math.sin(t*.001*s.s+s.p));ctx.fillStyle="#f6dfb7";ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();if(!reduced){s.y-=.035*s.s;if(s.y<0)s.y=h;}}ctx.globalAlpha=1;if(!reduced&&t-lastMeteor>7200){lastMeteor=t;meteor={x:Math.random()*w*.65,y:Math.random()*h*.35,life:0};}if(meteor){meteor.life++;const x=meteor.x+meteor.life*3.5,y=meteor.y+meteor.life*2.1,g=ctx.createLinearGradient(x-75,y-45,x,y);g.addColorStop(0,"rgba(232,201,143,0)");g.addColorStop(1,"rgba(255,239,207,.85)");ctx.strokeStyle=g;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(x-75,y-45);ctx.lineTo(x,y);ctx.stroke();if(meteor.life>55)meteor=null;}if(!reduced)requestAnimationFrame(frame);}
+resize();addEventListener("resize",resize,{passive:true});requestAnimationFrame(frame);
+})();
+</script></body></html>
