@@ -67,6 +67,47 @@ test('Sasha greeting is a short four-scene experience with no wish-card grid', a
   }
 });
 
+
+test('every story detail has its own clickable action and unique response', async ({ page }) => {
+  await page.goto('/sasha/', { waitUntil: 'domcontentloaded' });
+  await page.locator('#seal').click();
+  await page.locator('#giftTrigger').click();
+
+  const audit = await page.evaluate(() => {
+    const targets = [...document.querySelectorAll('[data-explore]')];
+    const messages = targets.map(el => el.dataset.exploreMessage);
+    const markerCount = document.querySelectorAll('[data-explore] .explore-marker').length;
+    const results = [];
+    for (const el of targets) {
+      el.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+      results.push({
+        id: el.dataset.explore,
+        expected: el.dataset.exploreMessage,
+        actual: document.querySelector('#detailToast').textContent
+      });
+    }
+    return {
+      count: targets.length,
+      uniqueIds: new Set(targets.map(el => el.dataset.explore)).size,
+      uniqueMessages: new Set(messages).size,
+      markerCount,
+      results
+    };
+  });
+
+  expect(audit.count).toBeGreaterThanOrEqual(30);
+  expect(audit.uniqueIds).toBe(audit.count);
+  expect(audit.uniqueMessages).toBe(audit.count);
+  expect(audit.markerCount).toBe(audit.count);
+  for (const result of audit.results) {
+    expect(result.actual, 'unique action ' + result.id).toBe(result.expected);
+  }
+
+  await page.locator('#scene0 h1').focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#detailToast')).toContainText('Это поздравление адресовано одной Саше');
+});
+
 test('premium scene layout fits narrow phones without horizontal overflow', async ({ page }) => {
   await page.goto('/sasha/', { waitUntil: 'domcontentloaded' });
   await expect(page.locator('#cosmos')).toBeAttached();
